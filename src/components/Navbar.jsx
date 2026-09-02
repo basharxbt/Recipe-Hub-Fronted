@@ -15,6 +15,7 @@ import Image from "next/image";
 import logo from "../../public/logo.jpg";
 
 const Navbar = () => {
+  
   const [mobileMenu, setMobileMenu] = useState(false);
 
   const navItems = [
@@ -82,13 +83,13 @@ const Navbar = () => {
           >
             <Bookmark size={21} strokeWidth={1.8} />
           </button>
-
-          <button
+          <Link
+            href="/profile"
             aria-label="Profile"
             className="text-black transition hover:text-[#c93632]"
           >
             <UserRound size={21} strokeWidth={1.8} />
-          </button>
+          </Link>
 
           <button
             aria-label="Search"
