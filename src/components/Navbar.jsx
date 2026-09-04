@@ -33,7 +33,7 @@ const Navbar = () => {
     },
     {
       name: "Recipes",
-      path: "/recipes",
+      path: "/all-recipe",
     },
     {
       name: "Cuisines",

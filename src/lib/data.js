@@ -3,6 +3,13 @@ export const recipeData = async () => {
   const fetchData = await res.json();
   return fetchData;
 };
+export const recipeSingleData = async (id) => {
+  const res = await fetch(`http://localhost:3100/recipes/${id}`, {
+    method: "GET",
+  });
+  const data = await res.json(id);
+  return data;
+};
 
 export const addRecipeData = async (recipe) => {
   const res = await fetch("http://localhost:3100/recipes", {

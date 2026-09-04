@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Clock3, Heart, Bookmark, ChefHat, Star } from "lucide-react";
+import Link from "next/link";
 
 const RecipeCard = ({ recipe }) => {
   return (
@@ -53,7 +54,7 @@ const RecipeCard = ({ recipe }) => {
         <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-[#8b8b8b]">
           <div className="flex items-center gap-1.5">
             <Clock3 size={16} />
-            <span>{recipe.time}</span>
+            <span>{recipe.time} min</span>
           </div>
 
           <div className="flex items-center gap-1.5">
@@ -65,6 +66,12 @@ const RecipeCard = ({ recipe }) => {
             <ChefHat size={16} />
             <span>{recipe.level}</span>
           </div>
+          <Link
+            href={`/recipe-details/${recipe._id}`}
+            className=" block w-full rounded-lg bg-[#c93632] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#ad302d]"
+          >
+            View Recipe
+          </Link>
         </div>
       </div>
     </article>

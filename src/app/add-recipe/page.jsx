@@ -298,6 +298,29 @@ Salt and black pepper to taste`}
               Add each cooking step on a separate line.
             </p>
           </section>
+          {/* Description */}
+          <section>
+            <div className="my-5 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#fff0ed] text-[#c93632]">
+                <FileText size={21} />
+              </div>
+
+              <div>
+                <h2 className="font-bold text-[#171717]">Description</h2>
+                <p className="text-xs text-gray-500">
+                  Briefly describe your recipe
+                </p>
+              </div>
+            </div>
+
+            <textarea
+              name="description"
+              rows={5}
+              required
+              placeholder="Describe your recipe in a few sentences..."
+              className="w-full resize-none rounded-lg border border-[#e2dcd8] bg-white px-4 py-3 text-sm leading-6 outline-none placeholder:text-gray-400 focus:border-[#c93632] focus:ring-2 focus:ring-[#c93632]/10"
+            />
+          </section>
 
           {/* Submit */}
           <div className="mt-10 flex flex-col-reverse gap-3 border-t border-[#eee6e1] pt-7 sm:flex-row sm:justify-end">
@@ -310,11 +333,8 @@ Salt and black pepper to taste`}
 
             <button
               type="submit"
-              disabled={uploading}
               className="rounded-lg bg-[#c93632] px-8 py-3 text-sm font-bold text-white transition hover:bg-[#ad302d] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {uploading ? "Uploading..." : "Publish Recipe"}
-            </button>
+            ></button>
           </div>
         </form>
       </div>
