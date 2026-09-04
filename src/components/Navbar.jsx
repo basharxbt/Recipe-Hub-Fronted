@@ -13,10 +13,18 @@ import {
 import { useState } from "react";
 import Image from "next/image";
 import logo from "../../public/logo.jpg";
+import { authClient, useSession } from "@/lib/auth-client";
 
 const Navbar = () => {
-  
+  const { data: userInfo, isPending } = useSession();
+
+  console.log("Session Data:", { userInfo, isPending });
+
   const [mobileMenu, setMobileMenu] = useState(false);
+
+  const signoutUser = async () => {
+    await authClient.signOut();
+  };
 
   const navItems = [
     {
@@ -84,7 +92,7 @@ const Navbar = () => {
             <Bookmark size={21} strokeWidth={1.8} />
           </button>
           <Link
-            href="/profile"
+            href={userInfo ? "/profile" : "/signin"}
             aria-label="Profile"
             className="text-black transition hover:text-[#c93632]"
           >
@@ -96,6 +104,9 @@ const Navbar = () => {
             className="text-black transition hover:text-[#c93632]"
           >
             <Search size={22} strokeWidth={1.8} />
+          </button>
+          <button onClick={signoutUser} className="btn">
+            Sign Out
           </button>
 
           <Link

@@ -13,9 +13,25 @@ const SignUpPage = () => {
     const userInfo = Object.fromEntries(formData.entries());
     console.log(userInfo);
 
-    const { data, error } = await authClient.signUp(userInfo);
-
+    const { data, error } = await authClient.signUp.email({
+      name: userInfo.name,
+      email: userInfo.email,
+      password: userInfo.password,
+      image: userInfo.image,
+    });
     console.log("Sign Up Response:", { data, error });
+
+    if (error) {
+      console.log("Status:", error.status);
+      console.log("Message:", error.message);
+      console.log("Full error:", error);
+    }
+  };
+
+  const googleSignIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
   };
   return (
     <div
@@ -47,10 +63,7 @@ const SignUpPage = () => {
             <form onSubmit={signUpUser} className="space-y-4">
               {/* Name */}
               <div>
-                <label
-                  htmlFor="name"
-                  className="mb-2 block text-sm font-semibold text-[#171717]"
-                >
+                <label className="mb-2 block text-sm font-semibold text-[#171717]">
                   Name
                 </label>
 
@@ -72,10 +85,7 @@ const SignUpPage = () => {
 
               {/* Email */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="mb-2 block text-sm font-semibold text-[#171717]"
-                >
+                <label className="mb-2 block text-sm font-semibold text-[#171717]">
                   Email
                 </label>
 
@@ -139,6 +149,8 @@ const SignUpPage = () => {
                     id="password"
                     name="password"
                     type="password"
+                    minLength={6}
+                    required
                     placeholder="Create a password"
                     className="w-full rounded-lg border border-[#e4ddd8] bg-white py-3.5 pl-11 pr-4 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#c93632] focus:ring-2 focus:ring-[#c93632]/10"
                   />
@@ -176,6 +188,7 @@ const SignUpPage = () => {
             </div>
 
             <Button
+              onClick={googleSignIn}
               className="w-full rounded-lg bg-white border border-gray-100 hover:bg-gray-50 text-gray-700 py-3.5 text-sm font-bold transition flex items-center justify-center gap-2"
               variant="tertiary"
             >

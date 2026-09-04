@@ -6,8 +6,15 @@ import { Icon } from "@iconify/react";
 import { Mail, Lock, Eye, EyeOff, Globe } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
 const LoginPage = () => {
+  const signInUser = async (e) => {
+    const { data, error } = await authClient.signIn.email({
+      email: e.target.email.value,
+      password: e.target.password.value,
+    });
+  };
   return (
     <main
       className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
@@ -35,7 +42,7 @@ const LoginPage = () => {
             {/* Google Login */}
 
             {/* Form */}
-            <form className="space-y-5">
+            <form onSubmit={signInUser} className="space-y-5">
               {/* Email */}
               <div>
                 <label
