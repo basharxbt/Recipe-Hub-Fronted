@@ -22,3 +22,11 @@ export const addRecipeData = async (recipe) => {
   const newRecipe = await res.json();
   return newRecipe;
 };
+
+export const likeIncrease = async (id) => {
+  const res = await fetch(`http://localhost:3100/recipes/${id}`, {
+    method: "PATCH",
+  });
+  const data = await res.json();
+  return data;
+};
