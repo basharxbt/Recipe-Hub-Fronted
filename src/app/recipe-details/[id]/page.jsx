@@ -2,7 +2,7 @@ import { recipeSingleData } from "@/lib/data";
 import Image from "next/image";
 import React from "react";
 import { Clock3, Globe2, Utensils, ChefHat, ForkKnifeIcon } from "lucide-react";
-import { Heart, Bookmark, Share2, Flag } from "lucide-react";
+
 import Action from "@/components/Action";
 import Likebtn from "@/components/Likebtn";
 
@@ -40,7 +40,6 @@ const RecipeDetailsPage = async ({ params }) => {
               <div className="my-5">
                 {" "}
                 <div className="flex flex-wrap items-center gap-x-16 gap-y-6">
-                  {/* Cooking Time */}
                   <div>
                     <div className="flex items-center gap-3">
                       <Clock3 size={18} className="text-gray-500" />
@@ -52,7 +51,6 @@ const RecipeDetailsPage = async ({ params }) => {
                     <p className="mt-2 text-xs text-gray-400">Cooking Time</p>
                   </div>
 
-                  {/* Cuisine */}
                   <div>
                     <div className="flex items-center gap-3">
                       <ForkKnifeIcon size={19} className="text-gray-500" />
@@ -64,7 +62,6 @@ const RecipeDetailsPage = async ({ params }) => {
                     <p className="mt-2 text-xs text-gray-400">Category</p>
                   </div>
 
-                  {/* Difficulty */}
                   <div>
                     <div className="flex items-center gap-3">
                       <ChefHat size={19} className="text-gray-500" />

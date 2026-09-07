@@ -30,3 +30,28 @@ export const likeIncrease = async (id) => {
   const data = await res.json();
   return data;
 };
+
+export const savedRecipe = async (recipe) => {
+  const res = await fetch(`http://localhost:3100/recipes/savedrecipe`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(recipe),
+  });
+  const data = res.json();
+  return data;
+};
+
+export const reportSend = async (report) => {
+  const res = await fetch("http://localhost:3100/recipes/report", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(report),
+  });
+  const data = res.json;
+
+  return data;
+};

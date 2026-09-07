@@ -5,7 +5,7 @@ import React, { useState } from "react";
 
 const Likebtn = ({ recipe }) => {
   const recipeLikes = parseInt(recipe.likes);
-  console.log(typeof recipeLikes);
+
   const [likes, setLikes] = useState(recipeLikes || 0);
   const [liked, setLiked] = useState(false);
   const likeHandler = async () => {

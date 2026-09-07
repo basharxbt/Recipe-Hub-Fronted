@@ -7,7 +7,7 @@ const FeaturedSection = async () => {
   return (
     <div className="py-20">
       <h1 className="text-3xl text-center py-10">Featured Recipes</h1>
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-4 gap-10">
         {recipes.map((recipe) => (
           <RecipeCard key={recipe._id} recipe={recipe} />
         ))}
