@@ -55,11 +55,12 @@ const AllRecipe = async () => {
           })}
         </div>
       </div>
-      <div className="my-10"> </div>
-      <div className="grid grid-cols-4 gap-5">
-        {allRecipes.map((recipe) => (
-          <RecipeCard key={recipe._id} recipe={recipe} />
-        ))}
+      <div className="my-10">
+        <div className="grid grid-cols-4 gap-5">
+          {allRecipes.map((recipe) => (
+            <RecipeCard key={recipe._id} recipe={recipe} />
+          ))}
+        </div>
       </div>
     </div>
   );

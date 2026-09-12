@@ -46,7 +46,7 @@ const PopularRecipe = async () => {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {popularRecipes.map((recipe, index) => (
             <Link
-              href={`/recipes/${recipe._id}`}
+              href={`/recipe-details/${recipe._id}`}
               key={recipe._id}
               className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
@@ -85,7 +85,7 @@ const PopularRecipe = async () => {
 
                 <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
                   <Clock size={15} />
-                  <span>{recipe.time}</span>
+                  <span>{recipe.time} min</span>
                 </div>
               </div>
             </Link>

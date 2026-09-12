@@ -4,7 +4,7 @@ export const recipeData = async () => {
   return fetchData;
 };
 export const recipeSingleData = async (id) => {
-  const res = await fetch(`http://localhost:3100/recipes/${id}`, {
+  const res = await fetch(`http://localhost:3100/recipes/find/${id}`, {
     method: "GET",
   });
   const data = await res.json(id);
@@ -52,6 +52,25 @@ export const reportSend = async (report) => {
     body: JSON.stringify(report),
   });
   const data = res.json;
+
+  return data;
+};
+
+export const favoriteRecipe = async () => {
+  const res = await fetch("http://localhost:3100/recipes/savedrecipe", {
+    method: "GET",
+  });
+  const data = res.json();
+
+  return data;
+};
+
+export const unsaveRecipe = async (id) => {
+  const data = await fetch(`http://localhost:3100/recipes/savedrecipe/${id}`, {
+    method: "DELETE",
+  });
+
+  console.log(id);
 
   return data;
 };

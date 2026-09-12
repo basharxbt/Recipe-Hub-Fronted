@@ -57,7 +57,8 @@ const ReportModal = ({ recipe }) => {
     const reportData = {
       recipeId: recipe?._id,
       reason: selectedReason,
-      user: session?.user?.email,
+      reporterEmail: session?.user?.email,
+      createdAt: new Date().toLocaleDateString(),
     };
 
     await reportSend(reportData);

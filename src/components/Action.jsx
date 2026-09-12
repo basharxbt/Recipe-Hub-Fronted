@@ -8,13 +8,18 @@ import ReportModal from "./ReportModal";
 
 const Action = ({ recipe }) => {
   const { data: session, error } = useSession();
-  const userEmail = session?.user?.email;
+  const user = session?.user;
 
   console.log(session, error, "this is from action");
   const [save, setSave] = useState(false);
   const saveRecipeHandler = async () => {
     if (save) return;
-    await savedRecipe({ ...recipe, userEmail });
+    await savedRecipe({
+      ...recipe,
+      userEmail: user?.email,
+      addedAt: new Date().toLocaleDateString(),
+      userId: user?.id,
+    });
     setSave(true);
   };
 

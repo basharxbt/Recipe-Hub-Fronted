@@ -4,16 +4,18 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 
 import { Mail, Lock, Eye, EyeOff, Globe } from "lucide-react";
-import Image from "next/image";
+
 import { Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
 const LoginPage = () => {
   const signInUser = async (e) => {
+    e.preventDefault();
     const { data, error } = await authClient.signIn.email({
       email: e.target.email.value,
       password: e.target.password.value,
     });
+    console.log(data, error);
   };
   return (
     <main
