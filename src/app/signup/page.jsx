@@ -1,12 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { User, Mail, Image as ImageIcon, Lock, Check } from "lucide-react";
+import {
+  User,
+  Mail,
+  Image as ImageIcon,
+  Lock,
+  Check,
+  UserRound,
+  ShieldCheck,
+} from "lucide-react";
 import { Icon } from "@iconify/react";
 import { Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { useState } from "react";
 
 const SignUpPage = () => {
+  const [role, setRole] = useState("user");
   const signUpUser = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -18,6 +28,7 @@ const SignUpPage = () => {
       email: userInfo.email,
       password: userInfo.password,
       image: userInfo.image,
+      role: role,
     });
     console.log("Sign Up Response:", { data, error });
 
@@ -167,6 +178,41 @@ const SignUpPage = () => {
                   <PasswordRule text="Minimum 6 characters" />
                   <PasswordRule text="One uppercase letter" />
                   <PasswordRule text="One lowercase letter" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-700">
+                  Account Type
+                </label>
+
+                <div className="grid grid-cols-2 gap-2 rounded-xl bg-gray-100 p-1">
+                  {/* User */}
+                  <button
+                    type="button"
+                    onClick={() => setRole("user")}
+                    className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-all ${
+                      role === "user"
+                        ? "bg-white text-[#c93632] shadow-sm"
+                        : "text-gray-500 hover:text-gray-700"
+                    }`}
+                  >
+                    <UserRound size={17} />
+                    User
+                  </button>
+
+                  {/* Admin */}
+                  <button
+                    type="button"
+                    onClick={() => setRole("admin")}
+                    className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-all ${
+                      role === "admin"
+                        ? "bg-white text-[#c93632] shadow-sm"
+                        : "text-gray-500 hover:text-gray-700"
+                    }`}
+                  >
+                    <ShieldCheck size={17} />
+                    Admin
+                  </button>
                 </div>
               </div>
 

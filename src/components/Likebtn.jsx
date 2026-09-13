@@ -9,15 +9,12 @@ const Likebtn = ({ recipe }) => {
   const [likes, setLikes] = useState(recipeLikes || 0);
   const [liked, setLiked] = useState(false);
   const likeHandler = async () => {
-    if (liked) {
-      setLikes((prev) => prev - 1);
-      setLiked(false);
-    } else {
-      setLikes((prev) => prev + 1);
-      setLiked(true);
-    }
     if (liked) return;
+    setLikes((prev) => prev + 1);
+    setLiked(true);
+
     await likeIncrease(recipe._id);
+    
   };
   return (
     <div>

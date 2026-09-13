@@ -24,7 +24,7 @@ export const addRecipeData = async (recipe) => {
 };
 
 export const likeIncrease = async (id) => {
-  const res = await fetch(`http://localhost:3100/recipes/${id}`, {
+  const res = await fetch(`http://localhost:3100/recipes/find/${id}`, {
     method: "PATCH",
   });
   const data = await res.json();
@@ -56,11 +56,14 @@ export const reportSend = async (report) => {
   return data;
 };
 
-export const favoriteRecipe = async () => {
-  const res = await fetch("http://localhost:3100/recipes/savedrecipe", {
-    method: "GET",
-  });
-  const data = res.json();
+export const favoriteRecipe = async (userEmail) => {
+  const res = await fetch(
+    `http://localhost:3100/recipes/savedrecipe/${userEmail}`,
+    {
+      method: "GET",
+    },
+  );
+  const data = await res.json();
 
   return data;
 };

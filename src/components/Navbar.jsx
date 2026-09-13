@@ -44,8 +44,8 @@ const Navbar = () => {
       path: "/all-recipe",
     },
     {
-      name: "Cuisines",
-      path: "/cuisines",
+      name: "Dashboard",
+      path: "/dashboard",
     },
     {
       name: "Categories",
@@ -89,14 +89,14 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Right Side */}
         <div className="hidden items-center gap-[20px] lg:flex">
-          <button
+          <Link
+            href="/favoriterecipe"
             aria-label="Bookmarks"
             className="text-black transition hover:text-[#c93632]"
           >
             <Bookmark size={21} strokeWidth={1.8} />
-          </button>
+          </Link>
           {userInfo ? (
             <ProfileDropdown></ProfileDropdown>
           ) : (

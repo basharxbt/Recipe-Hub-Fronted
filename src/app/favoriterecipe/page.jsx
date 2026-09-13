@@ -3,10 +3,18 @@ import Link from "next/link";
 import { Heart, Clock, BookmarkX } from "lucide-react";
 import { favoriteRecipe } from "@/lib/data";
 import UnsaveBtn from "@/components/favoriteSection/UnsaveBtn";
+import { useSession } from "@/lib/auth-client";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
 const FavouritePage = async () => {
-  const savedRecipes = await favoriteRecipe();
-  console.log(savedRecipes);
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const userEmail = session?.user.email;
+  const savedRecipes = await favoriteRecipe(userEmail);
+
+  console.log(savedRecipes, "thoissssssss");
   return (
     <main className="min-h-screen bg-[#faf9f7]">
       <section className="border-b border-gray-100 bg-white">
@@ -69,7 +77,6 @@ const FavouritePage = async () => {
                     {recipe.title}
                   </h2>
 
-                  {/* Recipe info */}
                   <div className="mt-4 flex items-center gap-4 text-sm text-gray-500">
                     <div className="flex items-center gap-1.5">
                       <Clock size={15} />
