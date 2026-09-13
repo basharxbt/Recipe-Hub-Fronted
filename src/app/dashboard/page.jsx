@@ -1,10 +1,11 @@
-import Dashboard from "@/components/Dashboard";
+import UserDashboard from "@/components/Dashboard";
+
 import React from "react";
 
 const DashboardPage = () => {
   return (
     <div>
-      <Dashboard></Dashboard>
+      <UserDashboard></UserDashboard>
     </div>
   );
 };

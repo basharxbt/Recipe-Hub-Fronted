@@ -1,5 +1,14 @@
 export const recipeData = async () => {
-  const res = await fetch("http://localhost:3100/recipes");
+  const res = await fetch("http://localhost:3100/recipes", {
+    method: "GET",
+  });
+  const fetchData = await res.json();
+  return fetchData;
+};
+export const recipeDataByAuthor = async (userEmail) => {
+  const res = await fetch(`http://localhost:3100/recipes/${userEmail}`, {
+    method: "GET",
+  });
   const fetchData = await res.json();
   return fetchData;
 };

@@ -1,11 +1,17 @@
 import { Bookmark, BookOpen, Heart, TrendingUp, Users } from "lucide-react";
 import React from "react";
 
-const Stats = ({ savedRecipes }) => {
+const Stats = ({ savedRecipes, totalRecipeByMe }) => {
+  const totalLikes = totalRecipeByMe.reduce(
+    (total, recipe) => total + Number(recipe.likes || 0),
+    0,
+  );
+
+  console.log(totalLikes, "TOTAL LIKES");
   const stats = [
     {
       title: "Total Recipes",
-      value: 0,
+      value: totalRecipeByMe.length,
       change: "+12.5%",
       icon: BookOpen,
     },
@@ -17,12 +23,12 @@ const Stats = ({ savedRecipes }) => {
     },
     {
       title: "Total Likes",
-      value: "2,840",
+      value: totalLikes,
       change: "+18.4%",
       icon: Heart,
     },
     {
-      title: "Profile Views",
+      title: "Total Purchased Recipe",
       value: "12.8K",
       change: "+24.6%",
       icon: Users,

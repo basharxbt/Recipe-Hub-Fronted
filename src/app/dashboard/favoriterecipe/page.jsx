@@ -17,25 +17,36 @@ const FavouritePage = async () => {
   console.log(savedRecipes, "thoissssssss");
   return (
     <main className="min-h-screen bg-[#faf9f7]">
-      <section className="border-b border-gray-100 bg-white">
-        <div className="container mx-auto px-5 py-14 lg:px-8">
-          <div className="text-center">
-            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff0ef]">
-              <Heart size={28} className="fill-[#c93632] text-[#c93632]" />
+      <section className="mb-8">
+        <div className="flex flex-col justify-between gap-5 rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 md:flex-row md:items-center">
+          {/* Left side */}
+          <div className="flex items-center gap-4">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#fff0ef]">
+              <Heart size={26} className="fill-[#c93632] text-[#c93632]" />
             </div>
 
-            <p className="text-sm font-bold uppercase tracking-[2px] text-[#c93632]">
-              Your collection
-            </p>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[1.5px] text-[#c93632]">
+                Your collection
+              </p>
 
-            <h1 className="mt-2 text-4xl font-bold text-gray-900">
-              Favourite Recipes
-            </h1>
+              <h1 className="mt-1 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                Favourite Recipes
+              </h1>
 
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-gray-500">
-              Your favourite recipes are all saved here. Cook something
-              delicious whenever you want.
-            </p>
+              <p className="mt-1 text-sm text-gray-500">
+                Your saved recipes, all in one place.
+              </p>
+            </div>
+          </div>
+
+          {/* Right side */}
+          <div className="flex items-center gap-2 rounded-xl bg-gray-50 px-4 py-3">
+            <Heart size={17} className="fill-[#c93632] text-[#c93632]" />
+
+            <span className="text-sm font-semibold text-gray-700">
+              24 Saved Recipes
+            </span>
           </div>
         </div>
       </section>

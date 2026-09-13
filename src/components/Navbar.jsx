@@ -26,7 +26,7 @@ const Navbar = () => {
   const user = session?.user;
   const { data: userInfo, isPending } = useSession();
 
-  console.log("Session Data:", { userInfo, isPending });
+  // console.log("Session Data:", { userInfo, isPending });
 
   const [mobileMenu, setMobileMenu] = useState(false);
 
