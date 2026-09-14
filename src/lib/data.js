@@ -6,7 +6,7 @@ export const recipeData = async () => {
   return fetchData;
 };
 export const recipeDataByAuthor = async (userEmail) => {
-  const res = await fetch(`http://localhost:3100/recipes/${userEmail}`, {
+  const res = await fetch(`http://localhost:3100/recipes/user/${userEmail}`, {
     method: "GET",
   });
   const fetchData = await res.json();
@@ -53,14 +53,23 @@ export const savedRecipe = async (recipe) => {
 };
 
 export const reportSend = async (report) => {
-  const res = await fetch("http://localhost:3100/recipes/report", {
+  const res = await fetch("http://localhost:3100/recipehub/report", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(report),
   });
-  const data = res.json;
+  const data = res.json();
+
+  return data;
+};
+
+export const getReport = async () => {
+  const res = await fetch("http://localhost:3100/recipehub/report", {
+    method: "GET",
+  });
+  const data = res.json();
 
   return data;
 };
@@ -84,5 +93,13 @@ export const unsaveRecipe = async (id) => {
 
   console.log(id);
 
+  return data;
+};
+
+export const totalUsers = async () => {
+  const res = await fetch("http://localhost:3100/recipehub/users", {
+    method: "GET",
+  });
+  const data = res.json();
   return data;
 };
