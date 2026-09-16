@@ -50,14 +50,16 @@ const ReportModal = ({ recipe }) => {
   const state = useOverlayState();
 
   const [selectedReason, setSelectedReason] = useState("");
-
+  const [additionalInfo, setAdditionalInfo] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const reportData = {
+      ...recipe,
       recipeId: recipe?._id,
       reason: selectedReason,
       reporterEmail: session?.user?.email,
+      additionalInfo,
       createdAt: new Date().toLocaleDateString(),
     };
 
@@ -125,7 +127,10 @@ const ReportModal = ({ recipe }) => {
                           <button
                             key={reason.value}
                             type="button"
-                            onClick={() => setSelectedReason(reason.label)}
+                            onClick={() => [
+                              setSelectedReason(reason.label),
+                              setAdditionalInfo(reason.description),
+                            ]}
                             className={`flex w-full items-center gap-3 rounded-xl border p-3.5 text-left transition-all ${
                               isSelected
                                 ? "border-[#c93632] bg-red-50"

@@ -5,6 +5,16 @@ export const recipeData = async () => {
   const fetchData = await res.json();
   return fetchData;
 };
+export const searchRecipe = async (search) => {
+  const url = search
+    ? `http://localhost:3100/recipes?search=${encodeURIComponent(search)}`
+    : "http://localhost:3100/recipes";
+  const res = await fetch(url, {
+    method: "GET",
+  });
+  const data = await res.json();
+  return data;
+};
 export const recipeDataByAuthor = async (userEmail) => {
   const res = await fetch(`http://localhost:3100/recipes/user/${userEmail}`, {
     method: "GET",

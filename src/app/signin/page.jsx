@@ -17,6 +17,13 @@ const LoginPage = () => {
     });
     console.log(data, error);
   };
+
+  const signInGoogleHandler = async () => {
+    const login = await authClient.signIn.social({
+      provider: "google",
+    });
+    console.log(login);
+  };
   return (
     <main
       className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
@@ -133,6 +140,7 @@ const LoginPage = () => {
           </div>
 
           <Button
+            onClick={signInGoogleHandler}
             className="w-full rounded-lg bg-white border border-gray-100 hover:bg-gray-50 text-gray-700 py-3.5 text-sm font-bold transition flex items-center justify-center gap-2"
             variant="tertiary"
           >
