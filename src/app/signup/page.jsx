@@ -12,10 +12,22 @@ import {
 } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { Button } from "@heroui/react";
-import { authClient } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { useState } from "react";
+import { redirect, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import SignupLoading from "@/components/pendingPage/SignupLoading";
 
 const SignUpPage = () => {
+  const { data: session, error: sessionError, isPending } = useSession();
+  if (session) redirect("/dashboard");
+  console.log(
+    session,
+    sessionError,
+    isPending,
+    " this is calling from signup page",
+  );
+  const router = useRouter();
   const [role, setRole] = useState("user");
   const signUpUser = async (e) => {
     e.preventDefault();
@@ -30,20 +42,27 @@ const SignUpPage = () => {
       image: userInfo.image,
       role: role,
     });
+
+    if (data) {
+      await authClient.signOut();
+      toast.success("Account created successfully!, Login now");
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 500);
+    }
     console.log("Sign Up Response:", { data, error });
 
     if (error) {
-      console.log("Status:", error.status);
-      console.log("Message:", error.message);
-      console.log("Full error:", error);
+      toast.error(error.message || "Failed to create account");
     }
   };
 
   const googleSignIn = async () => {
-    const data = await authClient.signIn.social({
+    const { data, error } = await authClient.signIn.social({
       provider: "google",
     });
   };
+  if (isPending) <SignupLoading></SignupLoading>;
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"

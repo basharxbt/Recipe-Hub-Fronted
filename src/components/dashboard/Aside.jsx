@@ -6,6 +6,7 @@ import {
   Bookmark,
   Flag,
   Settings,
+  LogOut,
 } from "lucide-react";
 
 import { recipeData } from "@/lib/data";
@@ -14,6 +15,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import Dashboard from "../Dashboard";
 import UserDashboard from "../Dashboard";
+import AsideLogoutBtn from "./AsideLogoutBtn";
 
 const Aside = async () => {
   const allRecipes = recipeData();
@@ -115,9 +117,7 @@ const Aside = async () => {
               </p>
             </div>
 
-            <button className="text-gray-400 hover:text-gray-700 cursor-pointer">
-              {/* <LogOut onClick={() => authClient.signOut()} size={17} /> */}
-            </button>
+            <AsideLogoutBtn></AsideLogoutBtn>
           </div>
         </div>
       </aside>

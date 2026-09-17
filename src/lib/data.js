@@ -26,7 +26,14 @@ export const recipeSingleData = async (id) => {
   const res = await fetch(`http://localhost:3100/recipes/find/${id}`, {
     method: "GET",
   });
-  const data = await res.json(id);
+  const data = await res.json();
+  return data;
+};
+export const reportedRecipeCollection = async () => {
+  const res = await fetch(`http://localhost:3100/reported-recipe/data`, {
+    method: "GET",
+  });
+  const data = await res.json();
   return data;
 };
 
@@ -84,11 +91,14 @@ export const getReport = async () => {
   return data;
 };
 
-export const favoriteRecipe = async (userEmail) => {
+export const favoriteRecipe = async (userEmail, token) => {
   const res = await fetch(
     `http://localhost:3100/recipes/savedrecipe/${userEmail}`,
     {
       method: "GET",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     },
   );
   const data = await res.json();
@@ -112,4 +122,20 @@ export const totalUsers = async () => {
   });
   const data = res.json();
   return data;
+};
+
+export const reportedRecipeDismiss = async (id) => {
+  const res = await fetch(`http://localhost:3100/reported-recipe/data/${id}`, {
+    method: "DELETE",
+  });
+  const data = res.json;
+};
+export const reportedRecipeDelete = async (id) => {
+  const res = await fetch(
+    `http://localhost:3100/reported-recipe/data-delete/${id}`,
+    {
+      method: "DELETE",
+    },
+  );
+  const data = res.json;
 };

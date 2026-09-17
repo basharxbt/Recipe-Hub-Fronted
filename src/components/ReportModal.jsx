@@ -55,12 +55,12 @@ const ReportModal = ({ recipe }) => {
     e.preventDefault();
 
     const reportData = {
-      ...recipe,
       recipeId: recipe?._id,
       reason: selectedReason,
       reporterEmail: session?.user?.email,
       additionalInfo,
       createdAt: new Date().toLocaleDateString(),
+      status: "pending",
     };
 
     await reportSend(reportData);

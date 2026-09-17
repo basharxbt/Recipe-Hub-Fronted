@@ -9,6 +9,7 @@ const DashboardPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+  
 
   const role = session?.user?.role;
   console.log(session.user, "this is from dashboard 2222222222222");

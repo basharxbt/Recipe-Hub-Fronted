@@ -124,7 +124,9 @@ const UserDashboard = async () => {
                       key={recipe.name}
                       className="flex items-center gap-4 p-5 transition hover:bg-gray-50"
                     >
-                      <img
+                      <Image
+                        width={150}
+                        height={150}
                         src={recipe.image}
                         alt={recipe.name}
                         className="h-16 w-16 rounded-xl object-cover"

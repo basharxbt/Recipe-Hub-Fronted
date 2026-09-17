@@ -6,15 +6,28 @@ import { Icon } from "@iconify/react";
 import { Mail, Lock, Eye, EyeOff, Globe } from "lucide-react";
 
 import { Button } from "@heroui/react";
-import { authClient } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { redirect, useRouter } from "next/navigation";
+import SignupLoading from "@/components/pendingPage/SignupLoading";
 
 const LoginPage = () => {
+  const { data: session, error, isPending } = useSession();
+  if (session) redirect("/dashboard");
+  const router = useRouter();
   const signInUser = async (e) => {
     e.preventDefault();
     const { data, error } = await authClient.signIn.email({
       email: e.target.email.value,
       password: e.target.password.value,
     });
+    if (data) {
+      toast.success("Login Successful ");
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 500);
+    }
+
     console.log(data, error);
   };
 
@@ -24,6 +37,7 @@ const LoginPage = () => {
     });
     console.log(login);
   };
+  if (isPending) <SignupLoading></SignupLoading>;
   return (
     <main
       className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"

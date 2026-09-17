@@ -4,6 +4,7 @@ import { UserRound, Settings, LogOut, ChevronDown } from "lucide-react";
 import { Button, Dropdown } from "@heroui/react";
 import Image from "next/image";
 import { useSession, signOut } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const ProfileDropdown = () => {
   const { data: session } = useSession();
@@ -13,6 +14,21 @@ const ProfileDropdown = () => {
   if (!user) {
     return null;
   }
+
+  const logoutHandle = async () => {
+    const { data, error } = await signOut();
+    if (error) {
+      toast.error(error.message || "Failed to sign out");
+      return;
+    }
+    if (data) {
+      toast.success("Signed out successfully!");
+
+      setTimeout(() => {
+        window.location.href = "/signin";
+      }, 500);
+    }
+  };
 
   return (
     <Dropdown>
@@ -84,9 +100,7 @@ const ProfileDropdown = () => {
             id="logout"
             textValue="Logout"
             className="rounded-xl text-red-500"
-            onAction={async () => {
-              await signOut();
-            }}
+            onAction={logoutHandle}
           >
             <LogOut size={17} />
             <span>Logout</span>

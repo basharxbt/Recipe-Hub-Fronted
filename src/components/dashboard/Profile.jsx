@@ -13,13 +13,17 @@ const Profile = () => {
   return (
     <div className="border-t border-gray-100 p-5">
       <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-3">
-        <Image
-          src={session?.user?.image}
-          alt={session?.user?.name}
-          width={50}
-          height={50}
-          className="rounded-full"
-        ></Image>
+        {user?.Image ? (
+          <Image
+            src={session?.user?.image}
+            alt={session?.user?.name}
+            width={50}
+            height={50}
+            className="rounded-full"
+          ></Image>
+        ) : (
+          ""
+        )}
 
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold">

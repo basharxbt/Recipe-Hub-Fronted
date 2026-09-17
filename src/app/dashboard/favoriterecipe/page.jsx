@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Heart, Clock, BookmarkX } from "lucide-react";
 import { favoriteRecipe } from "@/lib/data";
 import UnsaveBtn from "@/components/favoriteSection/UnsaveBtn";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 
@@ -12,7 +12,13 @@ const FavouritePage = async () => {
     headers: await headers(),
   });
   const userEmail = session?.user.email;
-  const savedRecipes = await favoriteRecipe(userEmail);
+
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  const savedRecipes = await favoriteRecipe(userEmail, token);
+
+  console.log(token, "this is headers");
 
   console.log(savedRecipes, "thoissssssss");
   return (
