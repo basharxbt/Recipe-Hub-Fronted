@@ -50,6 +50,18 @@ const RecipeCard = ({ recipe }) => {
           {recipe.title}
         </h2>
 
+        <div className="mt-5 flex items-center gap-3">
+          <div className="h-8 w-8 rounded-full bg-[#f8e7e6] flex items-center justify-center">
+            <ChefHat size={15} className="text-[#c93632]" />
+          </div>
+
+          <div className="leading-tight">
+            <p className="text-[11px] text-gray-400">Recipe by</p>
+            <p className="text-sm font-semibold text-gray-800 group-hover:text-[#c93632] transition">
+              {recipe.author.authorName}
+            </p>
+          </div>
+        </div>
         {/* Details */}
         <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-[#8b8b8b]">
           <div className="flex items-center gap-1.5">

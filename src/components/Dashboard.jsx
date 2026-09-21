@@ -25,8 +25,14 @@ const UserDashboard = async () => {
     headers: await headers(),
   });
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  console.log(token, "this is token from dashboard");
+
   const userEmail = session?.user?.email;
-  const savedRecipes = await favoriteRecipe(userEmail);
+  const savedRecipes = await favoriteRecipe(userEmail, token);
+  console.log(savedRecipes, "this is from dasgbhoarrd");
   console.log(savedRecipes.length, "this is from dashboard");
 
   const totalRecipeByMe = await recipeDataByAuthor(userEmail);

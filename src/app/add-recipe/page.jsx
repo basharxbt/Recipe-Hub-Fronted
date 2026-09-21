@@ -12,15 +12,17 @@ import {
   X,
 } from "lucide-react";
 import { addRecipeData } from "@/lib/data";
+import { useSession } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const AddRecipePage = () => {
-  const [imagePreview, setImagePreview] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [uploading, setUploading] = useState(false);
+  const { data: session } = useSession();
+  console.log(session?.user, "this is from add recipe");
 
-  const removeImage = () => {
-    setImagePreview("");
-    setImageUrl("");
+  const author = {
+    authorName: session?.user?.name,
+    authorId: session?.user?.id,
+    authorEmail: session?.user?.email,
   };
 
   const handleSubmit = async (e) => {
@@ -28,8 +30,10 @@ const AddRecipePage = () => {
 
     const formData = new FormData(e.target);
     const newRecipe = Object.fromEntries(formData.entries());
-    const recipeData = await addRecipeData(newRecipe);
+    const recipeData = await addRecipeData({ ...newRecipe, author });
     console.log("New Recipe Data:", recipeData);
+
+    toast.success("Recipe added successfully!");
   };
 
   return (
@@ -334,7 +338,9 @@ Salt and black pepper to taste`}
             <button
               type="submit"
               className="rounded-lg bg-[#c93632] px-8 py-3 text-sm font-bold text-white transition hover:bg-[#ad302d] disabled:cursor-not-allowed disabled:opacity-60"
-            ></button>
+            >
+              Add Recipe
+            </button>
           </div>
         </form>
       </div>

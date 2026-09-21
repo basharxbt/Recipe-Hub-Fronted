@@ -5,15 +5,14 @@ import {
   ChevronDown,
   Bookmark,
   UserRound,
-  Settings,
-  LogOut,
+  
   Menu,
   X,
 } from "lucide-react";
 
-import { Button, Dropdown } from "@heroui/react";
+
 import Image from "next/image";
-import { useSession, signOut } from "@/lib/auth-client";
+import { useSession } from "@/lib/auth-client";
 
 import { useState } from "react";
 
@@ -117,7 +116,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+    
         <button
           onClick={() => setMobileMenu(!mobileMenu)}
           className="lg:hidden"
@@ -127,7 +126,7 @@ const Navbar = () => {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+  
       {mobileMenu && (
         <div className="border-t border-gray-100 bg-white px-5 py-5 lg:hidden">
           <div className="flex flex-col">

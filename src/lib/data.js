@@ -129,6 +129,7 @@ export const reportedRecipeDismiss = async (id) => {
     method: "DELETE",
   });
   const data = res.json;
+  return data;
 };
 export const reportedRecipeDelete = async (id) => {
   const res = await fetch(
@@ -138,4 +139,13 @@ export const reportedRecipeDelete = async (id) => {
     },
   );
   const data = res.json;
+  return data;
+};
+
+export const recentCreatedRecipes = async (email) => {
+  const res = await fetch(`http://localhost:3100/recent/recipes/${email}`, {
+    method: "GET",
+  });
+  const data = res.json();
+  return data;
 };

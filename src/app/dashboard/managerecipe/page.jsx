@@ -1,19 +1,15 @@
+import DeleteRecipebtn from "@/components/dashboard/DeleteRecipebtn";
 import { recipeData } from "@/lib/data";
-import {
-  Eye,
-  Pencil,
-  Trash2,
-  Search,
-  SlidersHorizontal,
-  MoreHorizontal,
-  ChefHat,
-  Heart,
-} from "lucide-react";
+import { Eye, Search, SlidersHorizontal, ChefHat, Heart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const ManageRecipes = async () => {
   const recipes = await recipeData();
+  const recipesLikes = recipes.reduce((sum, recipe) => sum + recipe.likes, [0]);
+  console.log(recipesLikes, "this is recipes likes");
   console.log(recipes);
+
   return (
     <section className="min-h-screen bg-gray-50 p-6 lg:p-8">
       <div className="mx-auto max-w-7xl">
@@ -162,8 +158,8 @@ const ManageRecipes = async () => {
                         <Image
                           width={70}
                           height={70}
-                          alt={recipe.title}
-                          src={recipe.image}
+                          alt={recipe?.title}
+                          src={recipe?.image}
                           className="h-12 w-12 rounded-xl object-cover"
                         />
 
@@ -193,7 +189,7 @@ const ManageRecipes = async () => {
 
                     {/* Author */}
                     <td className="px-6 py-4 text-sm text-gray-600">
-                      {recipe.author || "Unknown"}
+                      {recipe.author.authorName || "Unknown"}
                     </td>
 
                     {/* Likes */}
@@ -224,16 +220,16 @@ const ManageRecipes = async () => {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-1">
                         <button className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-400 transition hover:bg-gray-100 hover:text-gray-700">
-                          <Eye size={17} />
+                          <Link
+                            className="cursor-pointer"
+                            href={`/recipe-details/${recipe._id}`}
+                          >
+                            {" "}
+                            <Eye size={21} className="text-green-600" />
+                          </Link>
                         </button>
 
-                        <button className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-400 transition hover:bg-red-50 hover:text-red-500">
-                          <Trash2 size={17} />
-                        </button>
-
-                        <button className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-400 transition hover:bg-gray-100 hover:text-gray-700">
-                          <MoreHorizontal size={18} />
-                        </button>
+                        <DeleteRecipebtn recipe={recipe}></DeleteRecipebtn>
                       </div>
                     </td>
                   </tr>

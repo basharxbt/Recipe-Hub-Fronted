@@ -51,7 +51,7 @@ const FavouritePage = async () => {
             <Heart size={17} className="fill-[#c93632] text-[#c93632]" />
 
             <span className="text-sm font-semibold text-gray-700">
-              24 Saved Recipes
+              {savedRecipes.length} Saved Recipes
             </span>
           </div>
         </div>

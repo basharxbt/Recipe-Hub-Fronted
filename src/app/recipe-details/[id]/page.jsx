@@ -119,10 +119,17 @@ const RecipeDetailsPage = async ({ params }) => {
 
                 <p className="text-2xl font-bold text-[#c93632]">$2.99</p>
               </div>
-
-              <button className="rounded-lg bg-[#c93632] px-6 py-3 font-semibold text-white transition hover:bg-[#ad302d]">
-                Unlock Recipe
-              </button>
+              <form action="/api/checkout_sessions" method="POST">
+                <section>
+                  <button
+                    type="submit"
+                    role="link"
+                    className="rounded-lg bg-[#c93632] px-6 py-3 font-semibold text-white transition hover:bg-[#ad302d]"
+                  >
+                    Checkout
+                  </button>
+                </section>
+              </form>
             </div>
           </div>
         </div>

@@ -3,11 +3,20 @@
 import { unsaveRecipe } from "@/lib/data";
 import { BookmarkX } from "lucide-react";
 import React from "react";
+import toast from "react-hot-toast";
 
 const UnsaveBtn = ({ recipe }) => {
   console.log(recipe);
   const unSaveHandler = async () => {
-    const deleteRecipe = await unsaveRecipe(recipe._id);
+    try {
+      await unsaveRecipe(recipe._id);
+      toast.success("Recipe Unsaved Successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, [500]);
+    } catch (error) {
+      toast.error(error);
+    }
   };
   return (
     <div>

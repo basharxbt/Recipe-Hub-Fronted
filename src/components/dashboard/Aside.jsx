@@ -6,19 +6,15 @@ import {
   Bookmark,
   Flag,
   Settings,
-  LogOut,
 } from "lucide-react";
 
-import { recipeData } from "@/lib/data";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
-import Dashboard from "../Dashboard";
-import UserDashboard from "../Dashboard";
+
 import AsideLogoutBtn from "./AsideLogoutBtn";
 
 const Aside = async () => {
-  const allRecipes = recipeData();
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -74,14 +70,6 @@ const Aside = async () => {
               <Bookmark size={19} />
               Favorite Recipes
             </Link>
-
-            <Link
-              href="/dashboard/reports"
-              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-            >
-              <Flag size={19} />
-              Reports
-            </Link>
           </div>
 
           <p className="mb-3 mt-10 px-3 text-[11px] font-bold uppercase tracking-widest text-gray-400">
@@ -89,7 +77,7 @@ const Aside = async () => {
           </p>
 
           <Link
-            href="/profile-settings"
+            href="/dashboard/profile"
             className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
           >
             <Settings size={19} />

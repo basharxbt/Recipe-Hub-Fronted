@@ -14,12 +14,13 @@ const Action = ({ recipe }) => {
   const [save, setSave] = useState(false);
   const saveRecipeHandler = async () => {
     if (save) return;
-    await savedRecipe({
+    const saveRecipe = await savedRecipe({
       ...recipe,
       userEmail: user?.email,
       addedAt: new Date().toLocaleDateString(),
       userId: user?.id,
     });
+    console.log(saveRecipe, "this is save recipe from details page");
     setSave(true);
   };
 
