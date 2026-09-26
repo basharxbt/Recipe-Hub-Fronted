@@ -1,14 +1,23 @@
 "use client";
+
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
-const Searchbtn = () => {
-  const [search, setSearch] = useState("");
+const Searchbtn = ({ filter }) => {
+  const [search, setSearch] = useState(filter.search);
   const router = useRouter();
 
-  const routerHandler = async () => {
-    router.push(`/all-recipe?search=${encodeURIComponent(search.trim())}`);
+  const routerHandler = () => {
+    const sp = new URLSearchParams();
+
+    if (search) {
+      sp.set("search", search);
+    }
+
+    const path = `?${sp.toString()}`;
+
+    router.push(`/all-recipe${path}`);
   };
 
   return (
@@ -20,13 +29,13 @@ const Searchbtn = () => {
         placeholder="Find what do you want to cook today"
         className="h-14 min-w-0 flex-1 bg-transparent px-6 text-base text-gray-700 outline-none placeholder:text-gray-500"
       />
+
       <button
         onClick={routerHandler}
-        type="submit"
-        aria-label="Search"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#c93632] text-white transition hover:bg-[#ad302d]"
+        type="button"
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#c93632] text-white"
       >
-        <Search size={26} strokeWidth={2} />
+        <Search size={26} />
       </button>
     </div>
   );

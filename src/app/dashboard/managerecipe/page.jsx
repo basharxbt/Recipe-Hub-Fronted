@@ -189,7 +189,7 @@ const ManageRecipes = async () => {
 
                     {/* Author */}
                     <td className="px-6 py-4 text-sm text-gray-600">
-                      {recipe.author.authorName || "Unknown"}
+                      {recipe?.authorName || "Unknown"}
                     </td>
 
                     {/* Likes */}

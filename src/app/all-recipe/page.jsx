@@ -4,12 +4,25 @@ import React from "react";
 import { Search } from "lucide-react";
 import Searchbtn from "@/components/Searchbtn";
 import NoRecipeFound from "@/components/NoRecipeFound";
+import { PaginationControlled } from "@/components/PaginationRecipesPage";
 
 const AllRecipe = async ({ searchParams }) => {
-  const { search } = await searchParams;
-  console.log(search, "this is search params from all recipe");
+  const searchQuery = await searchParams;
+  console.log(searchQuery, "this is searchQuery");
+  const sp = new URLSearchParams();
+  console.log(sp, "this is sp");
 
-  const allRecipes = await searchRecipe(search);
+  const search = searchQuery?.search || "";
+  const page = searchQuery?.page || "";
+
+  if (search) {
+    sp.set("search", search);
+  }
+  if (page) {
+    sp.set("page", page);
+  }
+
+  const allRecipes = await searchRecipe(sp);
   const categories = [
     { type: "Dinner" },
     { type: "Launch" },
@@ -24,7 +37,7 @@ const AllRecipe = async ({ searchParams }) => {
       </div>
       {/* recipe catagoris */}{" "}
       <div>
-        <Searchbtn />
+        <Searchbtn filter={searchQuery} />
       </div>
       <div className="flex gap-5 items-center justify-center mt-5 mb-10">
         <p className="my-3 text-neutral-500">Popular Searches: </p>
@@ -51,6 +64,7 @@ const AllRecipe = async ({ searchParams }) => {
             ))}
           </div>
         )}
+        <PaginationControlled></PaginationControlled>
       </div>
     </div>
   );

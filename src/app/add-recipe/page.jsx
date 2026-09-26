@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   ImagePlus,
   Clock3,
@@ -8,8 +7,6 @@ import {
   Utensils,
   List,
   FileText,
-  Upload,
-  X,
 } from "lucide-react";
 import { addRecipeData } from "@/lib/data";
 import { useSession } from "@/lib/auth-client";
@@ -19,21 +16,27 @@ const AddRecipePage = () => {
   const { data: session } = useSession();
   console.log(session?.user, "this is from add recipe");
 
-  const author = {
-    authorName: session?.user?.name,
-    authorId: session?.user?.id,
-    authorEmail: session?.user?.email,
-  };
+  const authorName = session?.user?.name;
+  const authorId = session?.user?.id;
+  const authorEmail = session?.user?.email;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const newRecipe = Object.fromEntries(formData.entries());
-    const recipeData = await addRecipeData({ ...newRecipe, author });
+    const recipeData = await addRecipeData({
+      ...newRecipe,
+      authorName,
+      authorId,
+      authorEmail,
+    });
     console.log("New Recipe Data:", recipeData);
 
     toast.success("Recipe added successfully!");
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   };
 
   return (
@@ -50,7 +53,7 @@ const AddRecipePage = () => {
           </h1>
 
           <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-500">
-            Share your favorite recipe with the Platea community and inspire
+            Share your favorite recipe with the RecipeHub community and inspire
             others to cook something delicious.
           </p>
         </div>
@@ -288,7 +291,7 @@ Salt and black pepper to taste`}
               name="instructions"
               rows={9}
               required
-              placeholder={`1. Boil the pasta until al dente.
+              placeholder={`1. Boil the pasta until al dent.
                  2. Heat olive oil in a pan.
           3. Add garlic and mushrooms and cook until soft.
          4. Pour in the cream and simmer.

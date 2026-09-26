@@ -58,7 +58,7 @@ const RecipeCard = ({ recipe }) => {
           <div className="leading-tight">
             <p className="text-[11px] text-gray-400">Recipe by</p>
             <p className="text-sm font-semibold text-gray-800 group-hover:text-[#c93632] transition">
-              {recipe.author.authorName}
+              {recipe?.authorName}
             </p>
           </div>
         </div>
