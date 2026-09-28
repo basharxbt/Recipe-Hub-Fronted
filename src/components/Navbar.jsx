@@ -1,15 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ChevronDown,
-  Bookmark,
-  UserRound,
-  
-  Menu,
-  X,
-} from "lucide-react";
-
+import { ChevronDown, Bookmark, UserRound, Menu, X } from "lucide-react";
 
 import Image from "next/image";
 import { useSession } from "@/lib/auth-client";
@@ -22,6 +14,7 @@ import ProfileDropdown from "./ProfileNavbar";
 
 const Navbar = () => {
   const { data: session } = useSession();
+  console.log(session);
   const user = session?.user;
   const { data: userInfo, isPending } = useSession();
 
@@ -116,7 +109,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-    
         <button
           onClick={() => setMobileMenu(!mobileMenu)}
           className="lg:hidden"
@@ -126,7 +118,6 @@ const Navbar = () => {
         </button>
       </nav>
 
-  
       {mobileMenu && (
         <div className="border-t border-gray-100 bg-white px-5 py-5 lg:hidden">
           <div className="flex flex-col">

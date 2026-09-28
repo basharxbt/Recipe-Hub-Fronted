@@ -150,3 +150,10 @@ export const recentCreatedRecipes = async (email) => {
   const data = res.json();
   return data;
 };
+export const recipeFeatureUpdate = async (id) => {
+  const res = await fetch(`http://localhost:3100/recipe/manage/${id}`, {
+    method: "PATCH",
+  });
+  const data = res.json();
+  return data;
+};

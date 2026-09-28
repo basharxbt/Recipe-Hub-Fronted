@@ -7,6 +7,7 @@ import {
   Search,
 } from "lucide-react";
 import Image from "next/image";
+import UserBlockBtn from "./UserBlockBtn";
 
 const ManageUsersSection = async () => {
   const users = await totalUsers();
@@ -152,12 +153,7 @@ const ManageUsersSection = async () => {
 
                   {/* Action */}
                   <td className="px-6 py-5 text-right">
-                    <button
-                      type="button"
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-gray-400 transition hover:bg-gray-100 hover:text-gray-700"
-                    >
-                      <MoreVertical size={18} />
-                    </button>
+                    <UserBlockBtn user={user}></UserBlockBtn>
                   </td>
                 </tr>
               ))}

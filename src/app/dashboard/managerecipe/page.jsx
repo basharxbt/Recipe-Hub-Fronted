@@ -1,7 +1,15 @@
 import DeleteRecipebtn from "@/components/dashboard/DeleteRecipebtn";
+import RecipefeatureUpdateBtn from "@/components/dashboard/RecipefeatureUpdateBtn";
 import { PaginationControlled } from "@/components/PaginationRecipesPage";
 import { recipeData, searchRecipe } from "@/lib/data";
-import { Eye, Search, SlidersHorizontal, ChefHat, Heart } from "lucide-react";
+import {
+  Eye,
+  Search,
+  SlidersHorizontal,
+  ChefHat,
+  Heart,
+  Star,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -73,7 +81,6 @@ const ManageRecipes = async ({ searchParams }) => {
               {recipes.length}
             </h3>
           </div>
-
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
             <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-green-50">
               <Eye size={21} className="text-green-600" />
@@ -84,16 +91,14 @@ const ManageRecipes = async ({ searchParams }) => {
               {allRecipes.length}
             </h3>
           </div>
-
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-orange-50">
-              <SlidersHorizontal size={21} className="text-orange-500" />
+            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50">
+              <Star size={21} className="text-purple-500" />
             </div>
 
-            <p className="text-sm text-gray-500">Pending Review</p>
-            <h3 className="mt-1 text-2xl font-bold text-gray-900">68</h3>
-          </div>
-
+            <p className="text-sm text-gray-500">Featured Recipes</p>
+            <h3 className="mt-1 text-2xl font-bold text-gray-900">24</h3>
+          </div>{" "}
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
             <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-pink-50">
               <Heart size={21} className="text-pink-500" />
@@ -163,7 +168,7 @@ const ManageRecipes = async ({ searchParams }) => {
                   </th>
 
                   <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-400">
-                    Status
+                    Recipe Mode
                   </th>
 
                   <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-400">
@@ -238,7 +243,7 @@ const ManageRecipes = async ({ searchParams }) => {
                             : "bg-orange-50 text-orange-600"
                         }`}
                       >
-                        {recipe.status || "Active"}
+                        {recipe.isFeatured || "Regular"}
                       </span>
                     </td>
 
@@ -256,6 +261,10 @@ const ManageRecipes = async ({ searchParams }) => {
                         </button>
 
                         <DeleteRecipebtn recipe={recipe}></DeleteRecipebtn>
+
+                        <RecipefeatureUpdateBtn
+                          recipe={recipe}
+                        ></RecipefeatureUpdateBtn>
                       </div>
                     </td>
                   </tr>

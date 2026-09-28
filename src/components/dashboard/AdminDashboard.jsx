@@ -20,28 +20,24 @@ const AdminDashboard = async () => {
       value: allUsers.length,
       description: "Registered users",
       icon: Users,
-      change: "+12.5%",
     },
     {
       title: "Total Recipes",
       value: allRecipe.length,
       description: "Recipes published",
       icon: ChefHat,
-      change: "+8.4%",
     },
     {
       title: "Premium Members",
       value: "326",
       description: "Active premium members",
       icon: Crown,
-      change: "+18.2%",
     },
     {
       title: "Total Reports",
       value: totalReports.length,
       description: "Reports awaiting review",
       icon: Flag,
-      change: "+4.6%",
     },
   ];
 
@@ -108,11 +104,6 @@ const AdminDashboard = async () => {
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900">
                       {stat.value}
                     </h2>
-
-                    <span className="mb-1 flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-[11px] font-bold text-green-600">
-                      <TrendingUp size={12} />
-                      {stat.change}
-                    </span>
                   </div>
 
                   <p className="mt-2 text-xs text-gray-400">
@@ -127,52 +118,6 @@ const AdminDashboard = async () => {
         {/* Overview */}
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {/* Platform Overview */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 lg:col-span-2">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="font-bold text-gray-900">Platform Overview</h2>
-
-                <p className="mt-1 text-xs text-gray-400">
-                  Current RecipeHub activity
-                </p>
-              </div>
-
-              <button className="flex items-center gap-1 text-xs font-semibold text-[#c93632]">
-                View details
-                <ArrowUpRight size={14} />
-              </button>
-            </div>
-
-            <div className="mt-7 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-xl bg-gray-50 p-5">
-                <Users size={20} className="text-gray-500" />
-
-                <p className="mt-4 text-xs text-gray-400">
-                  New users this month
-                </p>
-
-                <p className="mt-1 text-xl font-bold">184</p>
-              </div>
-
-              <div className="rounded-xl bg-gray-50 p-5">
-                <ChefHat size={20} className="text-gray-500" />
-
-                <p className="mt-4 text-xs text-gray-400">Recipes this month</p>
-
-                <p className="mt-1 text-xl font-bold">96</p>
-              </div>
-
-              <div className="rounded-xl bg-gray-50 p-5">
-                <Crown size={20} className="text-gray-500" />
-
-                <p className="mt-4 text-xs text-gray-400">
-                  Premium conversions
-                </p>
-
-                <p className="mt-1 text-xl font-bold">42</p>
-              </div>
-            </div>
-          </div>
 
           {/* Reports */}
           <div className="rounded-2xl border border-gray-200 bg-white p-6">
