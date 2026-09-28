@@ -56,7 +56,7 @@ const Aside = async () => {
             </Link>
 
             <Link
-              href="add-recipe"
+              href="/add-recipe"
               className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
             >
               <Plus size={19} />

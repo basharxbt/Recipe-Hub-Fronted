@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Heart, Clock, BookmarkX } from "lucide-react";
 import { favoriteRecipe } from "@/lib/data";
 import UnsaveBtn from "@/components/favoriteSection/UnsaveBtn";
-import { authClient, useSession } from "@/lib/auth-client";
+
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 

@@ -1,12 +1,34 @@
 import DeleteRecipebtn from "@/components/dashboard/DeleteRecipebtn";
-import { recipeData } from "@/lib/data";
+import { PaginationControlled } from "@/components/PaginationRecipesPage";
+import { recipeData, searchRecipe } from "@/lib/data";
 import { Eye, Search, SlidersHorizontal, ChefHat, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const ManageRecipes = async () => {
+const ManageRecipes = async ({ searchParams }) => {
+  const searchQuery = await searchParams;
   const recipes = await recipeData();
-  const recipesLikes = recipes.reduce((sum, recipe) => sum + recipe.likes, [0]);
+  const sp = new URLSearchParams();
+  console.log(sp, "this is sp");
+
+  const search = searchQuery?.search || "";
+  const page = searchQuery?.page || "";
+
+  if (search) {
+    sp.set("search", search);
+  }
+  if (page) {
+    sp.set("page", page);
+  }
+
+  const allRecipes = await searchRecipe(sp);
+
+  const totalLength = recipes.length;
+  console.log(totalLength, "this is all recipe legnth");
+  const recipesLikes = recipes.reduce(
+    (sum, recipe) => Number(sum) + recipe.likes,
+    [0],
+  );
   console.log(recipesLikes, "this is recipes likes");
   console.log(recipes);
 
@@ -58,7 +80,9 @@ const ManageRecipes = async () => {
             </div>
 
             <p className="text-sm text-gray-500">Published</p>
-            <h3 className="mt-1 text-2xl font-bold text-gray-900">1,180</h3>
+            <h3 className="mt-1 text-2xl font-bold text-gray-900">
+              {allRecipes.length}
+            </h3>
           </div>
 
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
@@ -76,7 +100,9 @@ const ManageRecipes = async () => {
             </div>
 
             <p className="text-sm text-gray-500">Total Likes</p>
-            <h3 className="mt-1 text-2xl font-bold text-gray-900">24.8K</h3>
+            <h3 className="mt-1 text-2xl font-bold text-gray-900">
+              {recipesLikes}
+            </h3>
           </div>
         </div>
 
@@ -91,9 +117,9 @@ const ManageRecipes = async () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
+            {/* <div className="flex flex-col gap-3 sm:flex-row">
               {/* Search */}
-              <div className="flex h-10 w-full items-center rounded-xl border border-gray-200 bg-gray-50 px-3 sm:w-64">
+            {/* <div className="flex h-10 w-full items-center rounded-xl border border-gray-200 bg-gray-50 px-3 sm:w-64">
                 <Search size={17} className="text-gray-400" />
 
                 <input
@@ -101,14 +127,14 @@ const ManageRecipes = async () => {
                   placeholder="Search recipes..."
                   className="ml-2 w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
                 />
-              </div>
+              </div> */}
 
-              {/* Filter */}
-              <button className="flex h-10 items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+            {/* Filter */}
+            {/* <button className="flex h-10 items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
                 <SlidersHorizontal size={16} />
                 Filter
-              </button>
-            </div>
+              </button> */}
+            {/* </div>  */}
           </div>
 
           {/* Table */}
@@ -147,7 +173,7 @@ const ManageRecipes = async () => {
               </thead>
 
               <tbody className="divide-y divide-gray-100">
-                {recipes.map((recipe) => (
+                {allRecipes.map((recipe) => (
                   <tr
                     key={recipe._id}
                     className="transition hover:bg-gray-50/70"
@@ -237,36 +263,10 @@ const ManageRecipes = async () => {
               </tbody>
             </table>
           </div>
-
-          {/* Pagination */}
-          <div className="flex flex-col gap-3 border-t border-gray-100 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-gray-500">
-              Showing <span className="font-medium text-gray-700">1–5</span> of{" "}
-              <span className="font-medium text-gray-700">1,248</span> recipes
-            </p>
-
-            <div className="flex items-center gap-1">
-              <button className="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-400">
-                Previous
-              </button>
-
-              <button className="rounded-lg bg-[#c93632] px-3 py-2 text-sm font-medium text-white">
-                1
-              </button>
-
-              <button className="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50">
-                2
-              </button>
-
-              <button className="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50">
-                3
-              </button>
-
-              <button className="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50">
-                Next
-              </button>
-            </div>
-          </div>
+          <PaginationControlled
+            totalLength={totalLength}
+            filters={searchQuery}
+          ></PaginationControlled>
         </div>
       </div>
     </section>

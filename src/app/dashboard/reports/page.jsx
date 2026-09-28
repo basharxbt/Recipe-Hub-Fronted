@@ -60,13 +60,17 @@ const ReportsPage = async () => {
                 <div className="flex flex-col gap-6 lg:flex-row">
                   <div className="flex min-w-0 flex-1 gap-4">
                     <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-gray-100 sm:h-28 sm:w-28">
-                      <Image
-                        width={100}
-                        height={100}
-                        src={report?.recipe?.image}
-                        alt={report?.recipe?.title}
-                        className="h-full w-full object-cover"
-                      />
+                      {report.recipe?.Image ? (
+                        <Image
+                          width={100}
+                          height={100}
+                          src={report?.recipe?.image}
+                          alt={report?.recipe?.title}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        ""
+                      )}
                     </div>
 
                     <div className="min-w-0 flex-1">

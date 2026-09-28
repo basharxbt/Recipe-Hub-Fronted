@@ -22,7 +22,7 @@ const MyRecipes = async () => {
   const email = session?.user?.email;
 
   const myRecipes = await recipeDataByAuthor(email);
-  console.log(myRecipes);
+  console.log(myRecipes, "this is my recipe from myRecipe Section");
   return (
     <div className="min-h-screen bg-[#faf9f7] px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">

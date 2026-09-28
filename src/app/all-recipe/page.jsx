@@ -23,6 +23,10 @@ const AllRecipe = async ({ searchParams }) => {
   }
 
   const allRecipes = await searchRecipe(sp);
+  const recipesLength = await searchRecipe("");
+  const totalLength = recipesLength.length;
+  console.log(totalLength, "this is all recipe legnth");
+
   const categories = [
     { type: "Dinner" },
     { type: "Launch" },
@@ -64,7 +68,10 @@ const AllRecipe = async ({ searchParams }) => {
             ))}
           </div>
         )}
-        <PaginationControlled></PaginationControlled>
+        <PaginationControlled
+          totalLength={totalLength}
+          filters={searchQuery}
+        ></PaginationControlled>
       </div>
     </div>
   );

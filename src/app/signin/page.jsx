@@ -21,6 +21,11 @@ const LoginPage = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     });
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     if (data) {
       toast.success("Login Successful ");
       setTimeout(() => {
@@ -110,6 +115,7 @@ const LoginPage = () => {
                   />
 
                   <input
+                    type="password"
                     id="password"
                     name="password"
                     placeholder="Enter your password"

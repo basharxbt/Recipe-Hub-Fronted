@@ -2,9 +2,10 @@
 
 import { useSession } from "@/lib/auth-client";
 import { savedRecipe } from "@/lib/data";
-import { Heart, Bookmark, Share2, Flag } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { useState } from "react";
 import ReportModal from "./ReportModal";
+import toast from "react-hot-toast";
 
 const Action = ({ recipe }) => {
   const { data: session, error } = useSession();
@@ -13,14 +14,18 @@ const Action = ({ recipe }) => {
   console.log(session, error, "this is from action");
   const [save, setSave] = useState(false);
   const saveRecipeHandler = async () => {
-    if (save) return;
+    if (save) {
+      toast.error("You had already saved this recipe");
+      return;
+    }
     const saveRecipe = await savedRecipe({
-      ...recipe,
+      recipeId: recipe._id,
       userEmail: user?.email,
       addedAt: new Date().toLocaleDateString(),
       userId: user?.id,
     });
     console.log(saveRecipe, "this is save recipe from details page");
+    toast.success("Recipe Saved Successfully");
     setSave(true);
   };
 

@@ -1,25 +1,59 @@
 "use client";
 
 import { Pagination } from "@heroui/react";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export function PaginationControlled() {
-  const [page, setPage] = useState(1);
-  const totalPages = 12;
-  const itemsPerPage = 10;
-  const totalItems = 120;
+export function PaginationControlled({ totalLength, filters }) {
+  const [page, setPage] = useState(Number(filters.page) || 1);
+  const [searchQuery, setSearchQuery] = useState(filters.search);
+
+  const itemsPerPage = 8;
+  const totalItems = totalLength;
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const router = useRouter();
 
   const getPageNumbers = () => {
-    const pages = [1, 2, 3, 4, 5, 6, 7, 8];
-
+    const pages = [];
+    pages.push(1);
+    if (page > 3) {
+      pages.push("ellipsis");
+    }
+    const start = Math.max(2, page - 1);
+    const end = Math.min(totalPages - 1, page + 1);
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    if (page < totalPages - 2) {
+      pages.push("ellipsis");
+    }
+    pages.push(totalPages);
     return pages;
   };
 
   const startItem = (page - 1) * itemsPerPage + 1;
   const endItem = Math.min(page * itemsPerPage, totalItems);
 
+  useEffect(() => {
+    const sp = new URLSearchParams();
+
+    if (searchQuery) {
+      sp.set("search", searchQuery);
+    }
+
+    if (page) {
+      sp.set("page", page);
+    }
+
+    console.log("search params", sp.toString());
+
+    const path = `?${sp.toString()}`;
+    router.push(path);
+  }, [router, searchQuery, page]);
+
   return (
-    <Pagination>
+    <Pagination className="pt-15">
       <Pagination.Summary>
         Showing {startItem}-{endItem} of {totalItems} results
       </Pagination.Summary>
