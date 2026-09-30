@@ -28,16 +28,16 @@ const UserDashboard = async () => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
-  console.log(token, "this is token from dashboard");
+ 
 
   const userEmail = session?.user?.email;
   const savedRecipes = await favoriteRecipe(userEmail, token);
-  console.log(savedRecipes, "this is from dasgbhoarrd");
-  console.log(savedRecipes.length, "this is from dashboard");
+
+
 
   const totalRecipeByMe = await recipeDataByAuthor(userEmail);
 
-  console.log(totalRecipeByMe, "this is total recipe by me");
+
 
   const recentRecipes = [
     {
@@ -103,9 +103,8 @@ const UserDashboard = async () => {
               totalRecipeByMe={totalRecipeByMe}
             ></Stats>
 
-            {/* Bottom content */}
             <section className="mt-8 grid gap-6 xl:grid-cols-[1fr_360px]">
-              {/* Recent Recipes */}
+          
               <div className="rounded-2xl border border-gray-200 bg-white">
                 <div className="flex items-center justify-between border-b border-gray-100 p-5">
                   <div>

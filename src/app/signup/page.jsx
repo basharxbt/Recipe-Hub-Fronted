@@ -160,7 +160,6 @@ const SignUpPage = () => {
                 </div>
               </div>
 
-              {/* Password */}
               <div>
                 <label
                   htmlFor="password"
@@ -180,8 +179,10 @@ const SignUpPage = () => {
                     name="password"
                     type="password"
                     minLength={6}
+                    pattern="(?=.*[a-z])(?=.*[A-Z]).{6,}"
                     required
                     placeholder="Create a password"
+                    title="Password must be at least 6 characters, with one uppercase and one lowercase letter."
                     className="w-full rounded-lg border border-[#e4ddd8] bg-white py-3.5 pl-11 pr-4 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#c93632] focus:ring-2 focus:ring-[#c93632]/10"
                   />
                 </div>
