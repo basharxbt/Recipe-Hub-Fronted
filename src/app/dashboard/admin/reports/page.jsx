@@ -6,7 +6,8 @@ import Link from "next/link";
 
 const ReportsPage = async () => {
   const reports = await reportedRecipeCollection();
-  console.log(reports);
+  const reportImg = reports.map((report) => report.recipe.image);
+  console.log(reportImg, "this is report");
 
   return (
     <section className="min-h-screen bg-gray-50 px-4 py-8 md:px-8 lg:px-10">
@@ -60,11 +61,11 @@ const ReportsPage = async () => {
                 <div className="flex flex-col gap-6 lg:flex-row">
                   <div className="flex min-w-0 flex-1 gap-4">
                     <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-gray-100 sm:h-28 sm:w-28">
-                      {report.recipe?.Image ? (
+                      {report.recipe?.image ? (
                         <Image
                           width={100}
                           height={100}
-                          src={report?.recipe?.image}
+                          src={report.recipe.image}
                           alt={report?.recipe?.title}
                           className="h-full w-full object-cover"
                         />
@@ -145,7 +146,7 @@ const ReportsPage = async () => {
 
               <div className="flex flex-col gap-3 border-t border-gray-100 bg-gray-50/70 px-5 py-4 sm:flex-row sm:items-center sm:justify-between md:px-6">
                 <Link
-                  href={`/recipe-details/${report._id}`}
+                  href={`/recipe-details/${report.recipe._id}`}
                   type="button"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:border-gray-300 hover:bg-gray-50"
                 >

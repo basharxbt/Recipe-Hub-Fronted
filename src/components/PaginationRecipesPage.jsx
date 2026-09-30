@@ -15,6 +15,7 @@ export function PaginationControlled({ totalLength, filters }) {
   const router = useRouter();
 
   const getPageNumbers = () => {
+    
     const pages = [];
     pages.push(1);
     if (page > 3) {

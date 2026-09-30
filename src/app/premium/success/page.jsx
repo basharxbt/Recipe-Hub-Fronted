@@ -1,9 +1,19 @@
 "use client";
 
+import { useSearchParams, useRouter } from "next/navigation";
+
 import { CheckCircle2, ArrowRight, Home } from "lucide-react";
 import Link from "next/link";
 
 const PaymentSuccess = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const sessionId = searchParams.get("session_id");
+
+  const handleTransaction = () => {
+    router.push(`/dashboard/admin/transactions?session_id=${sessionId}`);
+  };
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-lg">

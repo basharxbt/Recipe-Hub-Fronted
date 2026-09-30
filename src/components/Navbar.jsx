@@ -39,21 +39,21 @@ const Navbar = () => {
       name: "Dashboard",
       path: "/dashboard",
     },
-    {
-      name: "Categories",
-      path: "/categories",
-    },
-    {
-      name: "Blog",
-      path: "/blog",
-    },
-    {
-      name: "Features",
-      path: "/features",
-    },
+    // {
+    //   name: "Categories",
+    //   path: "/categories",
+    // },
+    // {
+    //   name: "Blog",
+    //   path: "/blog",
+    // },
+    // {
+    //   name: "Features",
+    //   path: "/features",
+    // },
   ];
   return (
-    <header className="w-full border-b border-gray-100 bg-white">
+    <header className="w-full border-b border-gray-100 bg-white sticky top-0 z-50">
       <nav className="mx-auto flex container  items-center justify-between px-5 py-4 lg:py-5">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-[54px] w-[54px] items-center justify-center rounded-[8px] bg-[#c93632] text-white">
@@ -83,7 +83,7 @@ const Navbar = () => {
 
         <div className="hidden items-center gap-[20px] lg:flex">
           <Link
-            href="/favoriterecipe"
+            href="/dashboard/favoriterecipe"
             aria-label="Bookmarks"
             className="text-black transition hover:text-[#c93632]"
           >
@@ -129,7 +129,6 @@ const Navbar = () => {
                 className="flex items-center justify-between border-b border-gray-100 py-4 text-[15px] font-semibold"
               >
                 {item.name}
-                <ChevronDown size={16} />
               </Link>
             ))}
 

@@ -43,7 +43,6 @@ const ManageRecipes = async ({ searchParams }) => {
   return (
     <section className="min-h-screen bg-gray-50 p-6 lg:p-8">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
             <p className="mb-1 text-sm font-medium text-[#c93632]">
@@ -65,7 +64,6 @@ const ManageRecipes = async ({ searchParams }) => {
           </button>
         </div>
 
-        {/* Stats */}
         <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
             <div className="mb-4 flex items-center justify-between">
@@ -97,7 +95,9 @@ const ManageRecipes = async ({ searchParams }) => {
             </div>
 
             <p className="text-sm text-gray-500">Featured Recipes</p>
-            <h3 className="mt-1 text-2xl font-bold text-gray-900">24</h3>
+            <h3 className="mt-1 text-2xl font-bold text-gray-900">
+              {allRecipes.map((recipe) => recipe.isFeatured).length}
+            </h3>
           </div>{" "}
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
             <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-pink-50">
@@ -111,9 +111,7 @@ const ManageRecipes = async ({ searchParams }) => {
           </div>
         </div>
 
-        {/* Table Card */}
         <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-          {/* Toolbar */}
           <div className="flex flex-col gap-4 border-b border-gray-100 p-5 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h2 className="font-semibold text-gray-900">All Recipes</h2>
@@ -121,28 +119,8 @@ const ManageRecipes = async ({ searchParams }) => {
                 {recipes.length} recipes available
               </p>
             </div>
-
-            {/* <div className="flex flex-col gap-3 sm:flex-row">
-              {/* Search */}
-            {/* <div className="flex h-10 w-full items-center rounded-xl border border-gray-200 bg-gray-50 px-3 sm:w-64">
-                <Search size={17} className="text-gray-400" />
-
-                <input
-                  type="text"
-                  placeholder="Search recipes..."
-                  className="ml-2 w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
-                />
-              </div> */}
-
-            {/* Filter */}
-            {/* <button className="flex h-10 items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
-                <SlidersHorizontal size={16} />
-                Filter
-              </button> */}
-            {/* </div>  */}
           </div>
 
-          {/* Table */}
           <div className="overflow-x-auto">
             <table className="w-full min-w-[900px]">
               <thead>
@@ -183,7 +161,6 @@ const ManageRecipes = async ({ searchParams }) => {
                     key={recipe._id}
                     className="transition hover:bg-gray-50/70"
                   >
-                    {/* Recipe */}
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <Image
@@ -206,24 +183,20 @@ const ManageRecipes = async ({ searchParams }) => {
                       </div>
                     </td>
 
-                    {/* Category */}
                     <td className="px-6 py-4">
                       <span className="rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600">
                         {recipe.category}
                       </span>
                     </td>
 
-                    {/* Cuisine */}
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {recipe.cuisine}
                     </td>
 
-                    {/* Author */}
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {recipe?.authorName || "Unknown"}
                     </td>
 
-                    {/* Likes */}
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
                         <Heart
@@ -234,7 +207,6 @@ const ManageRecipes = async ({ searchParams }) => {
                       </div>
                     </td>
 
-                    {/* Status */}
                     <td className="px-6 py-4">
                       <span
                         className={`rounded-full px-3 py-1.5 text-xs font-semibold ${

@@ -19,14 +19,13 @@ const Hero = () => {
         backgroundImage: "url('/herobg.png')",
       }}
     >
-      <div className="flex justify-between">
-        {/* left */}
-        <div className="  px-25 py-20 flex flex-col items-start justify-start">
-          <p className="mb-5 text-sm font-bold uppercase tracking-[5px] text-[#c93632]">
+      <div className="flex justify-between px-5 md:px-0">
+        <div className="  md:px-25 py-20 flex flex-col items-start justify-start">
+          <p className="mb-5 text-sm font-bold uppercase md:tracking-[5px] text-[#c93632]">
             Discover <span className="mx-2">•</span> Cook{" "}
             <span className="mx-2">•</span> Share
           </p>
-          <h1 className="text-6xl font-bold">
+          <h1 className="md:text-6xl text-4xl font-bold">
             Good Food Starts
             <br />
             With a <span className="text-[#c93632]">Great Recipe.</span>
@@ -50,7 +49,6 @@ const Hero = () => {
             </button>
           </div>
 
-          {/* Buttons */}
           <div className="mt-7 flex flex-wrap gap-4">
             <Link
               href="/recipes"
@@ -106,7 +104,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="relative z-20 pb-12 container mx-auto ">
+      <div className="relative z-20 pb-12 px-3 lg:px-0 container mx-auto ">
         <div className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_rgba(0,0,0,0.07)]">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-bold">Popular Categories</h2>

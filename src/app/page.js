@@ -1,6 +1,8 @@
 import FeaturedSection from "@/components/FeaturedSection";
+import FeedbackSection from "@/components/FeedbackSection";
 import Hero from "@/components/Hero";
 import PopularRecipe from "@/components/PopularRecipe";
+import WhyRecipeHub from "@/components/WhyRecipeHub";
 
 export default function Home() {
   return (
@@ -8,6 +10,8 @@ export default function Home() {
       <Hero></Hero>
       <FeaturedSection></FeaturedSection>
       <PopularRecipe></PopularRecipe>
+      <WhyRecipeHub></WhyRecipeHub>
+      <FeedbackSection></FeedbackSection>
     </div>
   );
 }

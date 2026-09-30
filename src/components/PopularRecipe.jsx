@@ -13,7 +13,7 @@ const PopularRecipe = async () => {
     .sort((a, b) => b.likes - a.likes);
   console.log(popularRecipes);
   return (
-    <section className="  w-full container mx-auto py-20">
+    <section className="md:px-0 w-full container mx-auto py-20">
       <div className="mx-auto">
         <div className="mb-10 flex items-end justify-between">
           <div>

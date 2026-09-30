@@ -5,6 +5,7 @@ import { Button, Dropdown } from "@heroui/react";
 import Image from "next/image";
 import { useSession, signOut } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const ProfileDropdown = () => {
   const { data: session } = useSession();
@@ -84,17 +85,17 @@ const ProfileDropdown = () => {
             className="rounded-xl"
           >
             <UserRound size={17} />
-            <span>My Profile</span>
+            <Link href="/dashboard/profile">My Profile</Link>
           </Dropdown.Item>
 
-          <Dropdown.Item
+          {/* <Dropdown.Item
             id="settings"
             textValue="Settings"
             className="rounded-xl"
           >
             <Settings size={17} />
-            <span>Settings</span>
-          </Dropdown.Item>
+            <Link href="/dashboard/profile">Settings</Link>
+          </Dropdown.Item> */}
 
           <Dropdown.Item
             id="logout"

@@ -48,7 +48,7 @@ const AdminAside = async () => {
 
           {/* Manage Users */}
           <Link
-            href="/dashboard/manageusers"
+            href="/dashboard/admin/manageusers"
             className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
           >
             <Users size={19} />
@@ -57,7 +57,7 @@ const AdminAside = async () => {
 
           {/* Manage Recipes */}
           <Link
-            href="/dashboard/managerecipe"
+            href="/dashboard/admin/managerecipe"
             className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
           >
             <ChefHat size={19} />
@@ -66,7 +66,7 @@ const AdminAside = async () => {
 
           {/* Reports */}
           <Link
-            href="/dashboard/reports"
+            href="/dashboard/admin/reports"
             className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
           >
             <Flag size={19} />
@@ -75,7 +75,7 @@ const AdminAside = async () => {
 
           {/* Transactions */}
           <Link
-            href="/dashboard/transactions"
+            href="/dashboard/admin/transactions"
             className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
           >
             <CreditCard size={19} />

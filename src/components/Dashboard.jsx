@@ -164,7 +164,6 @@ const UserDashboard = async () => {
                 </div>
               </div>
 
-              {/* Quick Actions */}
               <div className="rounded-2xl border border-gray-200 bg-white p-5">
                 <div className="mb-5">
                   <h2 className="font-bold">Quick Actions</h2>
@@ -175,7 +174,7 @@ const UserDashboard = async () => {
 
                 <div className="space-y-3">
                   <Link
-                    href="/dashboard/add-recipe"
+                    href="/add-recipe"
                     className="group flex items-center gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-red-100 hover:bg-red-50"
                   >
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-[#c93632]">
@@ -196,7 +195,7 @@ const UserDashboard = async () => {
                   </Link>
 
                   <Link
-                    href="/dashboard/saved"
+                    href="/dashboard/favoriterecipe"
                     className="group flex items-center gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-red-100 hover:bg-red-50"
                   >
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
@@ -217,7 +216,7 @@ const UserDashboard = async () => {
                   </Link>
 
                   <Link
-                    href="/dashboard/settings"
+                    href="/dashboard/profile"
                     className="group flex items-center gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-red-100 hover:bg-red-50"
                   >
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600">

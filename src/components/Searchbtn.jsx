@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Searchbtn = ({ filter }) => {
-  const [search, setSearch] = useState(filter.search);
+  const [search, setSearch] = useState(filter.search || "");
   const router = useRouter();
 
   const routerHandler = () => {

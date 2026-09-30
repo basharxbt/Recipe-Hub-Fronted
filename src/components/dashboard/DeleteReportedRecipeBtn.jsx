@@ -1,18 +1,39 @@
 "use client";
 import { reportedRecipeDelete, reportedRecipeDismiss } from "@/lib/data";
 import { Check, Trash2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const DeleteReportedRecipeBtn = (report) => {
   console.log(report.report.recipeId, "this is from deleted btn");
 
   const deleteReportedHandler = async () => {
-    reportedRecipeDelete(report.report.recipeId);
-    reportedRecipeDismiss(report.report.recipeId);
+    try {
+      reportedRecipeDelete(report.report.recipeId);
+      reportedRecipeDismiss(report.report.recipeId);
+      toast.success("Reported Recipe Deleted Successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      toast.error("Something Went Wrong");
+    }
+  };
+
+  const dismissReportedHandler = async () => {
+    try {
+      reportedRecipeDismiss(report.report.recipeId);
+      toast.success("Report Dismiss Successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      toast.error("Something Went Wrong");
+    }
   };
   return (
     <div className="flex flex-col gap-2 sm:flex-row">
       <button
-        onClick={async () => reportedRecipeDismiss(report.report.recipeId)}
+        onClick={dismissReportedHandler}
         type="button"
         className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-600 transition hover:border-gray-300 hover:bg-gray-100"
       >

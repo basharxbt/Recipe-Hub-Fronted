@@ -34,7 +34,6 @@ const ManageUsersSection = async () => {
           </p>
         </div>
 
-        {/* Total Users */}
         <div className="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white px-5 py-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#fff0ef]">
             <Users size={20} className="text-[#c93632]" />
@@ -47,7 +46,6 @@ const ManageUsersSection = async () => {
         </div>
       </div>
 
-      {/* Search Bar */}
       <div className="mb-6 rounded-2xl border border-gray-200 bg-white p-4">
         <div className="relative">
           <Search
@@ -63,7 +61,6 @@ const ManageUsersSection = async () => {
         </div>
       </div>
 
-      {/* Users Table */}
       <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[750px]">
@@ -97,7 +94,6 @@ const ManageUsersSection = async () => {
                   key={user._id}
                   className="border-b border-gray-100 last:border-0 transition hover:bg-gray-50/70"
                 >
-                  {/* User */}
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
                       <Image
@@ -120,12 +116,10 @@ const ManageUsersSection = async () => {
                     </div>
                   </td>
 
-                  {/* Email */}
                   <td className="px-6 py-5">
                     <p className="text-sm text-gray-600">{user.email}</p>
                   </td>
 
-                  {/* Role */}
                   <td className="px-6 py-5">
                     {user.role === "admin" ? (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fff0ef] px-3 py-1.5 text-xs font-semibold text-[#c93632]">
@@ -140,7 +134,6 @@ const ManageUsersSection = async () => {
                     )}
                   </td>
 
-                  {/* Joined */}
                   <td className="px-6 py-5">
                     <p className="text-sm text-gray-600">
                       {new Date(user.createdAt).toLocaleDateString("en-GB", {
@@ -151,7 +144,6 @@ const ManageUsersSection = async () => {
                     </p>
                   </td>
 
-                  {/* Action */}
                   <td className="px-6 py-5 text-right">
                     <UserBlockBtn user={user}></UserBlockBtn>
                   </td>
@@ -161,7 +153,6 @@ const ManageUsersSection = async () => {
           </table>
         </div>
 
-        {/* Table Footer */}
         <div className="flex items-center justify-between border-t border-gray-100 px-6 py-4">
           <p className="text-xs text-gray-400">
             Showing <span className="font-semibold text-gray-600">5</span> of{" "}

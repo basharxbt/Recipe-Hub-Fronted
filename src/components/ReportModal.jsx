@@ -11,6 +11,7 @@ import {
 import { Button, Modal, TextArea, useOverlayState } from "@heroui/react";
 import { reportSend } from "@/lib/data";
 import { useSession } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const reportReasons = [
   {
@@ -70,6 +71,7 @@ const ReportModal = ({ recipe }) => {
     setSelectedReason("");
 
     state.close();
+    toast.success("Report Send Successfully");
   };
 
   return (

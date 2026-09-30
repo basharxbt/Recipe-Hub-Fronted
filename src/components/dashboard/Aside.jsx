@@ -13,6 +13,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 
 import AsideLogoutBtn from "./AsideLogoutBtn";
+import AsideNavUser from "./AsideNavUser";
 
 const Aside = async () => {
   const session = await auth.api.getSession({
@@ -34,55 +35,7 @@ const Aside = async () => {
         </div>
 
         <nav className="flex-1 px-4 py-7">
-          <p className="mb-3 px-3 text-[11px] font-bold uppercase tracking-widest text-gray-400">
-            Workspace
-          </p>
-
-          <div className="space-y-1">
-            <Link
-              href="/dashboard"
-              className="flex items-center gap-3 rounded-xl bg-[#c93632] px-4 py-3 text-sm font-semibold text-white shadow-md shadow-red-100"
-            >
-              <LayoutDashboard size={19} />
-              Dashboard
-            </Link>
-
-            <Link
-              href="/dashboard/myrecipes"
-              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-            >
-              <ChefHat size={19} />
-              My Recipes
-            </Link>
-
-            <Link
-              href="/add-recipe"
-              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-            >
-              <Plus size={19} />
-              Add Recipe
-            </Link>
-
-            <Link
-              href="/dashboard/favoriterecipe"
-              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-            >
-              <Bookmark size={19} />
-              Favorite Recipes
-            </Link>
-          </div>
-
-          <p className="mb-3 mt-10 px-3 text-[11px] font-bold uppercase tracking-widest text-gray-400">
-            Account
-          </p>
-
-          <Link
-            href="/dashboard/profile"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-          >
-            <Settings size={19} />
-            Settings
-          </Link>
+          <AsideNavUser></AsideNavUser>
         </nav>
 
         <div className="border-t border-gray-100 p-5">
