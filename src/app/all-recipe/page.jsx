@@ -15,12 +15,20 @@ const AllRecipe = async ({ searchParams }) => {
 
   const search = searchQuery?.search || "";
   const page = searchQuery?.page || "";
+  const category = searchQuery?.category || "";
+  const cuisine = searchQuery?.cuisine || "";
 
   if (search) {
     sp.set("search", search);
   }
   if (page) {
     sp.set("page", page);
+  }
+  if (category) {
+    sp.set("category", category);
+  }
+  if (cuisine) {
+    sp.set("cuisine", page);
   }
 
   const allRecipes = await searchRecipe(sp);
@@ -45,7 +53,7 @@ const AllRecipe = async ({ searchParams }) => {
       <div className="my-5">
         <h1 className="text-4xl font-bold mb-6">Discover Delicious Recipes</h1>
       </div>
-      {/* recipe catagoris */}{" "}
+
       <div>
         <Searchbtn filter={searchQuery} />
       </div>

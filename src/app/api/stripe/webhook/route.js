@@ -1,64 +1,155 @@
-import { NextResponse } from "next/server";
+import Stripe from "stripe";
 import { MongoClient } from "mongodb";
 
-import { stripe } from "@/lib/stripe";
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const client = new MongoClient(process.env.MONGODB_URI);
 
 export async function POST(request) {
-  const body = await request.text();
-
-  const signature = request.headers.get("stripe-signature");
-
-  let event;
-
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET,
-    );
-  } catch (error) {
-    console.error("Webhook error:", error.message);
+    const body = await request.text();
 
-    return new NextResponse("Webhook Error", {
-      status: 400,
-    });
-  }
+    const signature = request.headers.get("stripe-signature");
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object;
+    if (!signature) {
+      return new Response(
+        JSON.stringify({
+          message: "Missing Stripe signature",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    }
+
+    let event;
 
     try {
+      event = stripe.webhooks.constructEvent(
+        body,
+        signature,
+        process.env.STRIPE_WEBHOOK_SECRET,
+      );
+    } catch (error) {
+      console.error("Stripe webhook signature error:", error.message);
+
+      return new Response(
+        JSON.stringify({
+          message: "Webhook signature verification failed",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    }
+
+    console.log("Stripe event:", event.type);
+
+    if (event.type === "checkout.session.completed") {
+      const session = event.data.object;
+
+      console.log("Payment completed:", session.id);
+
       await client.connect();
 
-      const db = client.db("RecipeDB");
-      const transactions = db.collection("transactions");
+      const database = client.db("RecipeDB");
+      const transactions = database.collection("transactions");
 
-      await transactions.insertOne({
-        transactionId: session.payment_intent,
-        checkoutSessionId: session.id,
+      // Save transaction
+      const transactionData = {
+        stripeSessionId: session.id,
 
-        customerName: session.customer_details?.name,
+        transactionId:
+          typeof session.payment_intent === "string"
+            ? session.payment_intent
+            : session.payment_intent?.id || null,
 
-        customerEmail: session.customer_details?.email,
+        userName: session.customer_details?.name || "",
 
-        amount: session.amount_total,
+        userEmail: session.customer_details?.email || "",
 
-        currency: session.currency,
+        amount: session.amount_total || 0,
 
-        paymentStatus: session.payment_status,
+        currency: session.currency || "",
 
-        createdAt: new Date(),
-      });
+        paymentStatus: session.payment_status || "",
 
-      console.log("Transaction saved");
-    } catch (error) {
-      console.error("MongoDB error:", error);
+        status: session.status || "",
+
+        product: session.metadata?.product || "Premium Recipe",
+
+        userId: session.customer_details?.id || null,
+
+        paidAt: new Date(),
+      };
+
+      // Prevent duplicate transactions
+      const result = await transactions.updateOne(
+        {
+          stripeSessionId: session.id,
+        },
+        {
+          $set: transactionData,
+        },
+        {
+          upsert: true,
+        },
+      );
+
+      console.log("Transaction saved:", result);
     }
-  }
 
-  return NextResponse.json({
-    received: true,
-  });
+    // -----------------------------------------
+    // PAYMENT EXPIRED
+    // -----------------------------------------
+
+    if (event.type === "checkout.session.expired") {
+      const session = event.data.object;
+
+      console.log("Checkout session expired:", session.id);
+    }
+
+    // -----------------------------------------
+    // PAYMENT FAILED
+    // -----------------------------------------
+
+    if (event.type === "payment_intent.payment_failed") {
+      const paymentIntent = event.data.object;
+
+      console.log("Payment failed:", paymentIntent.id);
+    }
+
+    // Stripe needs a successful response
+    return new Response(
+      JSON.stringify({
+        received: true,
+      }),
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  } catch (error) {
+    console.error("Webhook error:", error);
+
+    return new Response(
+      JSON.stringify({
+        message: "Webhook failed",
+      }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  }
 }

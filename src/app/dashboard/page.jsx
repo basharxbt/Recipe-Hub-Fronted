@@ -12,9 +12,8 @@ const DashboardPage = async () => {
   });
 
   const role = session?.user?.role;
-  console.log(session.user, "this is from dashboard 2222222222222");
 
-  if (!session.user) {
+  if (!session?.user) {
     return redirect("/signin");
   }
 

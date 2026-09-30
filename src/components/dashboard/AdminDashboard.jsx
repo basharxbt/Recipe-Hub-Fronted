@@ -7,6 +7,7 @@ import {
   ArrowUpRight,
   TrendingUp,
 } from "lucide-react";
+import Link from "next/link";
 
 const AdminDashboard = async () => {
   const allUsers = await totalUsers();
@@ -136,15 +137,20 @@ const AdminDashboard = async () => {
             </div>
 
             <div className="mt-7">
-              <p className="text-4xl font-bold text-gray-900">24</p>
+              <p className="text-4xl font-bold text-gray-900">
+                {totalReports.length}
+              </p>
 
               <p className="mt-1 text-sm text-gray-400">Pending reports</p>
             </div>
 
-            <button className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#c93632] py-3 text-sm font-semibold text-white transition hover:bg-[#b82f2b]">
+            <Link
+              href="/dashboard/admin/reports"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#c93632] py-3 text-sm font-semibold text-white transition hover:bg-[#b82f2b]"
+            >
               Review Reports
               <ArrowUpRight size={16} />
-            </button>
+            </Link>
           </div>
         </div>
       </div>
