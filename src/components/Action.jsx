@@ -7,9 +7,11 @@ import { useState } from "react";
 import ReportModal from "./ReportModal";
 import toast from "react-hot-toast";
 
-const Action = ({ recipe }) => {
+const Action = ({ recipe, savedRecipesCount }) => {
+  console.log(savedRecipesCount, "this is saved recipes count from action");
   const { data: session, error } = useSession();
   const user = session?.user;
+  const userEmail = user?.email;
 
   console.log(session, error, "this is from action");
   const [save, setSave] = useState(false);
@@ -18,6 +20,13 @@ const Action = ({ recipe }) => {
       toast.error("You had already saved this recipe");
       return;
     }
+    if (!user.isPremium && savedRecipesCount >= 2) {
+      toast.error(
+        "Free users can save up to 2 recipes. Upgrade to premium for unlimited saves.",
+      );
+      return;
+    }
+
     const saveRecipe = await savedRecipe({
       recipeId: recipe._id,
       userEmail: user?.email,

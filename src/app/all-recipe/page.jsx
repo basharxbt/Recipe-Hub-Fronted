@@ -1,7 +1,7 @@
 import RecipeCard from "@/components/RecipeCard";
 import { recipeData, searchRecipe } from "@/lib/data";
 import React from "react";
-import { Search } from "lucide-react";
+
 import Searchbtn from "@/components/Searchbtn";
 import NoRecipeFound from "@/components/NoRecipeFound";
 import { PaginationControlled } from "@/components/PaginationRecipesPage";

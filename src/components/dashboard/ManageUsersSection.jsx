@@ -46,21 +46,6 @@ const ManageUsersSection = async () => {
         </div>
       </div>
 
-      <div className="mb-6 rounded-2xl border border-gray-200 bg-white p-4">
-        <div className="relative">
-          <Search
-            size={18}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-          />
-
-          <input
-            type="text"
-            placeholder="Search users..."
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-11 pr-4 text-sm text-gray-700 outline-none placeholder:text-gray-400 focus:border-[#c93632] focus:bg-white"
-          />
-        </div>
-      </div>
-
       <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[750px]">
@@ -151,31 +136,6 @@ const ManageUsersSection = async () => {
               ))}
             </tbody>
           </table>
-        </div>
-
-        <div className="flex items-center justify-between border-t border-gray-100 px-6 py-4">
-          <p className="text-xs text-gray-400">
-            Showing <span className="font-semibold text-gray-600">5</span> of{" "}
-            <span className="font-semibold text-gray-600">248</span> users
-          </p>
-
-          <div className="flex items-center gap-2">
-            <button className="rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-500">
-              Previous
-            </button>
-
-            <button className="rounded-lg bg-[#c93632] px-3 py-2 text-xs font-semibold text-white">
-              1
-            </button>
-
-            <button className="rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-500">
-              2
-            </button>
-
-            <button className="rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-500">
-              Next
-            </button>
-          </div>
         </div>
       </div>
     </div>

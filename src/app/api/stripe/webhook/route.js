@@ -1,11 +1,18 @@
 import Stripe from "stripe";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const client = new MongoClient(process.env.MONGODB_URI);
 
 export async function POST(request) {
+  // const session = await auth.api.getSession({
+  //   headers: await headers(),
+  // });
+
+  // console.log("User session:", session);
   try {
     const body = await request.text();
 
@@ -60,6 +67,18 @@ export async function POST(request) {
 
       const database = client.db("RecipeDB");
       const transactions = database.collection("transactions");
+      const userInfo = database.collection("user");
+
+      const userData = { isPremium: true };
+
+      const updateUserData = await userInfo.updateOne(
+        { email: session.metadata?.userEmail },
+        {
+          $set: userData,
+        },
+      );
+
+      console.log("user updated", updateUserData);
 
       // Save transaction
       const transactionData = {
@@ -84,9 +103,10 @@ export async function POST(request) {
 
         product: session.metadata?.product || "Premium Recipe",
 
-        userId: session.customer_details?.id || null,
+        userId: session.metadata?.userId || null,
 
         paidAt: new Date(),
+        isPremium: true,
       };
 
       // Prevent duplicate transactions

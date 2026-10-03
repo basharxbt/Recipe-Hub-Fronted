@@ -150,7 +150,7 @@ export const recentCreatedRecipes = async (email) => {
   const data = res.json();
   return data;
 };
-export const transactions = async (email) => {
+export const transactions = async () => {
   const res = await fetch(`http://localhost:3100/premium/transaction`, {
     method: "GET",
   });
@@ -162,5 +162,16 @@ export const recipeFeatureUpdate = async (id) => {
     method: "PATCH",
   });
   const data = res.json();
+  return data;
+};
+export const userBlock = async (id, newStatus) => {
+  const res = await fetch(`http://localhost:3100/users/role/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ newStatus }),
+  });
+  const data = await res.json();
   return data;
 };

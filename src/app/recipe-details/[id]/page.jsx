@@ -1,17 +1,34 @@
-import { recipeSingleData } from "@/lib/data";
+import { favoriteRecipe, recipeSingleData } from "@/lib/data";
 import Image from "next/image";
 import React from "react";
-import { Clock3, Globe2, Utensils, ChefHat, ForkKnifeIcon } from "lucide-react";
+import { Clock3, ChefHat, ForkKnifeIcon } from "lucide-react";
 
 import Action from "@/components/Action";
 import Likebtn from "@/components/Likebtn";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const RecipeDetailsPage = async ({ params }) => {
   const { id } = await params;
   console.log(id);
   const recipe = await recipeSingleData(id);
   console.log(recipe);
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const userEmail = session?.user?.email;
+  console.log(userEmail, "this is user email from favorite page");
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  const savedRecipes = await favoriteRecipe(userEmail, token);
+  console.log(savedRecipes, "this is saved recipes");
+  const savedRecipesCount = savedRecipes.length;
+  console.log(
+    savedRecipesCount,
+    "this is saved recipes count from details page",
+  );
   return (
     <div className="min-h-screen container mx-auto mt-10">
       <div className="flex justify-around">
@@ -93,7 +110,10 @@ const RecipeDetailsPage = async ({ params }) => {
               </p>
             </div>
           </section>
-          <Action recipe={recipe}></Action>
+          <Action
+            savedRecipesCount={savedRecipesCount}
+            recipe={recipe}
+          ></Action>
           <div className="mt-8 h-full rounded-2xl border border-[#eaded8]  p-6 w-full">
             <div className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#c93632] text-xl text-white">

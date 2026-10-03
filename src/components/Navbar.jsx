@@ -11,6 +11,7 @@ import { useState } from "react";
 import logo from "../../public/logo.jpg";
 import { authClient } from "@/lib/auth-client";
 import ProfileDropdown from "./ProfileNavbar";
+import { Darkmode } from "./DarkMode";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -80,6 +81,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
+        <Darkmode></Darkmode>
 
         <div className="hidden items-center gap-[20px] lg:flex">
           <Link

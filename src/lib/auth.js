@@ -1,16 +1,16 @@
-const dns = require("node:dns");
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { jwt } from "better-auth/plugins";
 
-const client = new MongoClient(process.env.MONGODB_URI);
-const db = client.db("RecipeDB"); // Use your database name here
+const client = new MongoClient(process.env.MONGODB_URI, {
+  family: 4,
+});
+
+const db = client.db("RecipeDB");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
-    // Optional: if you don't provide a client, database transactions won't be enabled.
     client,
   }),
 
@@ -18,6 +18,7 @@ export const auth = betterAuth({
     enabled: true,
     minPasswordLength: 6,
   },
+
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -31,10 +32,15 @@ export const auth = betterAuth({
       trustedProviders: ["google"],
     },
   },
+
   user: {
     additionalFields: {
       role: {
         default: "user",
+      },
+
+      isPremium: {
+        default: false,
       },
     },
   },
@@ -46,5 +52,6 @@ export const auth = betterAuth({
       maxAge: 1 * 24 * 60 * 60,
     },
   },
+
   plugins: [jwt()],
 });
