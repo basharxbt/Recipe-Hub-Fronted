@@ -4,12 +4,20 @@ import { useSearchParams, useRouter } from "next/navigation";
 
 import { CheckCircle2, ArrowRight, Home } from "lucide-react";
 import Link from "next/link";
+import { useSession } from "@/lib/auth-client";
+import { useEffect } from "react";
 
 const PaymentSuccess = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { data, isPending, refetch } = useSession();
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const sessionId = searchParams.get("session_id");
+
+  //
 
   const handleTransaction = () => {
     router.push(`/dashboard/admin/transactions?session_id=${sessionId}`);

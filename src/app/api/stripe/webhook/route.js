@@ -1,19 +1,14 @@
 import Stripe from "stripe";
-import { MongoClient, ObjectId } from "mongodb";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { MongoClient } from "mongodb";
+import { premiumPriceId } from "@/lib/stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const client = new MongoClient(process.env.MONGODB_URI);
 
 export async function POST(request) {
-  // const session = await auth.api.getSession({
-  //   headers: await headers(),
-  // });
-
-  // console.log("User session:", session);
   try {
+    // Read webhook body only once
     const body = await request.text();
 
     const signature = request.headers.get("stripe-signature");
@@ -56,29 +51,39 @@ export async function POST(request) {
       );
     }
 
-    console.log("Stripe event:", event.type);
-
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
 
-      console.log("Payment completed:", session.id);
+      // Get recipe ID from Stripe metadata
+      const recipeId = session.metadata?.recipeId;
+
+      console.log("Recipe ID from webhook:", recipeId);
 
       await client.connect();
 
       const database = client.db("RecipeDB");
+
       const transactions = database.collection("transactions");
       const userInfo = database.collection("user");
 
-      const userData = { isPremium: true };
+      // Update user
+      const premiumType = session.metadata?.premiumType;
+      console.log("Premium Type from webhook:", premiumType);
 
-      const updateUserData = await userInfo.updateOne(
-        { email: session.metadata?.userEmail },
-        {
-          $set: userData,
-        },
-      );
+      if (premiumType === "premium_access") {
+        const updateUserData = await userInfo.updateOne(
+          {
+            email: session.metadata?.userEmail,
+          },
+          {
+            $set: {
+              isPremium: true,
+            },
+          },
+        );
 
-      console.log("user updated", updateUserData);
+        console.log("User updated:", updateUserData);
+      }
 
       // Save transaction
       const transactionData = {
@@ -89,9 +94,9 @@ export async function POST(request) {
             ? session.payment_intent
             : session.payment_intent?.id || null,
 
-        userName: session.customer_details?.name || "",
+        userName: session.metadata?.userName || "",
 
-        userEmail: session.customer_details?.email || "",
+        userEmail: session.metadata?.userEmail || "",
 
         amount: session.amount_total || 0,
 
@@ -101,15 +106,15 @@ export async function POST(request) {
 
         status: session.status || "",
 
-        product: session.metadata?.product || "Premium Recipe",
+        product: premiumType || "Premium Recipe",
 
         userId: session.metadata?.userId || null,
 
+        recipeId: recipeId || null,
+
         paidAt: new Date(),
-        isPremium: true,
       };
 
-      // Prevent duplicate transactions
       const result = await transactions.updateOne(
         {
           stripeSessionId: session.id,
@@ -126,7 +131,7 @@ export async function POST(request) {
     }
 
     // -----------------------------------------
-    // PAYMENT EXPIRED
+    // CHECKOUT EXPIRED
     // -----------------------------------------
 
     if (event.type === "checkout.session.expired") {
@@ -145,7 +150,7 @@ export async function POST(request) {
       console.log("Payment failed:", paymentIntent.id);
     }
 
-    // Stripe needs a successful response
+    // Stripe needs 200 response
     return new Response(
       JSON.stringify({
         received: true,

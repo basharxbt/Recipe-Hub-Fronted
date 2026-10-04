@@ -40,7 +40,10 @@ export const auth = betterAuth({
       },
 
       isPremium: {
-        default: false,
+        type: "boolean",
+        required: false,
+        defaultValue: false,
+        input: false,
       },
     },
   },

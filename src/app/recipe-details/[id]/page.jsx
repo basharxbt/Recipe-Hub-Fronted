@@ -141,6 +141,16 @@ const RecipeDetailsPage = async ({ params }) => {
               </div>
               <form action="/api/checkout_sessions" method="POST">
                 <section>
+                  <input
+                    type="hidden"
+                    name="recipeId"
+                    value={recipe._id.toString()}
+                  />
+                  <input
+                    type="hidden"
+                    name="premiumType"
+                    value="premium_recipe"
+                  />
                   <button
                     type="submit"
                     role="link"

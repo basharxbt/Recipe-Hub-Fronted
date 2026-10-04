@@ -1,17 +1,34 @@
 "use client";
 
 import ProfileEdit from "@/components/ProfileEdit";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
+import { CrownDiamond } from "@gravity-ui/icons";
 import { Crown, Pencil, UserRound } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+// import premium from "/king.png";
 
 const Profile = () => {
-  const { data, isPending } = useSession();
+  const { data, isPending, refetch } = useSession();
 
+  console.log(refetch);
   const [mounted, setMounted] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const refreshUser = async () => {
+      const result = await authClient.getSession({
+        query: {
+          disableCookieCache: true,
+        },
+      });
+
+      console.log("Fresh premium:");
+    };
+
+    refreshUser();
+  }, []);
 
   const user = data?.user;
 
@@ -54,6 +71,15 @@ const Profile = () => {
             <div className="px-6 pb-8 sm:px-10">
               <div className="-mt-16 flex items-end justify-between">
                 <div className="relative">
+                  {data?.user?.isPremium && (
+                    <Image
+                      className="relative z-10 -rotate-z-12 top-5"
+                      src="/king.png"
+                      alt="Premium"
+                      height={60}
+                      width={60}
+                    />
+                  )}
                   {user.image ? (
                     <img
                       src={user.image}
@@ -146,6 +172,11 @@ const Profile = () => {
               </div>
               <form action="/api/checkout_sessions" method="POST">
                 <section>
+                  <input
+                    type="hidden"
+                    name="premiumType"
+                    value="premium_access"
+                  />
                   <button
                     type="submit"
                     className="mt-5 cursor-pointer w-full rounded-xl bg-[#c93632] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#ad302d]"

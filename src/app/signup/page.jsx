@@ -41,6 +41,7 @@ const SignUpPage = () => {
       password: userInfo.password,
       image: userInfo.image,
       role: role,
+      isPremium: false,
     });
 
     if (data) {

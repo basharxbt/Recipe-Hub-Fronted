@@ -7,6 +7,8 @@ import {
   Plus,
   Bookmark,
   Settings,
+  PlusIcon,
+  ShoppingBag,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -33,6 +35,11 @@ const AsideNavUser = () => {
       name: "Favorite Recipes",
       href: "/dashboard/favoriterecipe",
       icon: Bookmark,
+    },
+    {
+      name: "Purchased Recipes",
+      href: "/dashboard/purchasedrecipes",
+      icon: ShoppingBag,
     },
   ];
 
