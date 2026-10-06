@@ -45,6 +45,13 @@ export const auth = betterAuth({
         defaultValue: false,
         input: false,
       },
+      isBlocked: {
+        type: "string",
+        required: false,
+        defaultValue: "Unlocked",
+        input: false,
+        returned: true,
+      },
     },
   },
 

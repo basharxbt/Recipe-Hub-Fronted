@@ -175,3 +175,11 @@ export const userBlock = async (id, newStatus) => {
   const data = await res.json();
   return data;
 };
+
+export const myPurchasedRecipes = async () => {
+  const res = await fetch(`http://localhost:3100/purchased/recipes`, {
+    method: "GET",
+  });
+  const data = await res.json();
+  return data;
+};

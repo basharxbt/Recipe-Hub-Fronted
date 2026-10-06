@@ -22,7 +22,6 @@ const Aside = async () => {
   return (
     <div>
       <aside className="hidden min-h-screen w-72 border-r border-gray-200 bg-white lg:flex lg:flex-col">
-        {/* Logo */}
         <div className="flex h-20 items-center gap-3 border-b border-gray-100 px-7">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#c93632] text-white shadow-lg shadow-red-100">
             <ChefHat size={23} />

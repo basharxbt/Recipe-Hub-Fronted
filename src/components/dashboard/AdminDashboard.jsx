@@ -1,4 +1,10 @@
-import { getReport, recipeData, reportSend, totalUsers } from "@/lib/data";
+import {
+  getReport,
+  recipeData,
+  reportSend,
+  totalUsers,
+  transactions,
+} from "@/lib/data";
 import {
   Users,
   ChefHat,
@@ -13,6 +19,10 @@ const AdminDashboard = async () => {
   const allUsers = await totalUsers();
   const allRecipe = await recipeData();
   const totalReports = await getReport();
+  const allTransactions = await transactions();
+  const premiumTransactions = allTransactions.filter(
+    (transaction) => transaction.product === "premium_access",
+  );
   console.log(totalReports, "total reports from dashboard");
   console.log(allUsers, "this is total user");
   const stats = [
@@ -30,7 +40,7 @@ const AdminDashboard = async () => {
     },
     {
       title: "Premium Members",
-      value: "326",
+      value: premiumTransactions.length,
       description: "Active premium members",
       icon: Crown,
     },

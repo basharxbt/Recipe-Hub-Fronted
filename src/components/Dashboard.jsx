@@ -1,26 +1,31 @@
 import Link from "next/link";
+
 import {
-  LayoutDashboard,
-  ChefHat,
   Plus,
   Bookmark,
-  Flag,
   Settings,
-  Bell,
-  Search,
-  ChevronDown,
-  Heart,
   ArrowUpRight,
+  Heart,
+  ChefHat,
 } from "lucide-react";
 
 import Stats from "./dashboard/Stats";
-import { favoriteRecipe, recipeData, recipeDataByAuthor } from "@/lib/data";
+
+import {
+  favoriteRecipe,
+  myPurchasedRecipes,
+  recipeData,
+  recipeDataByAuthor,
+} from "@/lib/data";
+
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+
 import Image from "next/image";
 
 const UserDashboard = async () => {
   const allRecipes = recipeData();
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -28,47 +33,24 @@ const UserDashboard = async () => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
- 
 
   const userEmail = session?.user?.email;
+
   const savedRecipes = await favoriteRecipe(userEmail, token);
 
-
-
   const totalRecipeByMe = await recipeDataByAuthor(userEmail);
-
-
-
-  const recentRecipes = [
-    {
-      name: "Creamy Garlic Pasta",
-      category: "Dinner",
-      likes: 248,
-      image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601",
-    },
-    {
-      name: "Chicken Biryani",
-      category: "Main Course",
-      likes: 194,
-      image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8",
-    },
-    {
-      name: "Classic Pancakes",
-      category: "Breakfast",
-      likes: 156,
-      image: "https://images.unsplash.com/photo-1528207776546-365bb710ee93",
-    },
-  ];
+  const purchasedRecipes = await myPurchasedRecipes();
 
   return (
     <div className="min-h-screen bg-[#f8f7f5] text-gray-900">
       <div className="flex">
-        {/* Sidebar */}
-
+        {/* Main */}
         <main className="min-w-0 flex-1">
+          {/* Header */}
           <header className="flex h-20 items-center justify-between border-b border-gray-200 bg-white px-5 sm:px-8">
             <div>
               <p className="text-xs font-medium text-gray-400">Workspace</p>
+
               <h2 className="text-xl font-bold">Dashboard</h2>
             </div>
           </header>
@@ -101,21 +83,22 @@ const UserDashboard = async () => {
             <Stats
               savedRecipes={savedRecipes}
               totalRecipeByMe={totalRecipeByMe}
-            ></Stats>
+              purchasedRecipes={purchasedRecipes}
+            />
 
             <section className="mt-8 grid gap-6 xl:grid-cols-[1fr_360px]">
-          
               <div className="rounded-2xl border border-gray-200 bg-white">
                 <div className="flex items-center justify-between border-b border-gray-100 p-5">
                   <div>
-                    <h2 className="font-bold">Recent Recipes</h2>
+                    <h2 className="font-bold">My Recipes</h2>
+
                     <p className="mt-1 text-xs text-gray-400">
-                      Your latest recipe activity
+                      Recipes you have published
                     </p>
                   </div>
 
                   <Link
-                    href="/dashboard/recipes"
+                    href="/dashboard/myrecipes"
                     className="flex items-center gap-1 text-xs font-semibold text-[#c93632]"
                   >
                     View all
@@ -123,57 +106,101 @@ const UserDashboard = async () => {
                   </Link>
                 </div>
 
-                <div className="divide-y divide-gray-100">
-                  {recentRecipes.map((recipe) => (
-                    <div
-                      key={recipe.name}
-                      className="flex items-center gap-4 p-5 transition hover:bg-gray-50"
-                    >
-                      <Image
-                        width={150}
-                        height={150}
-                        src={recipe.image}
-                        alt={recipe.name}
-                        className="h-16 w-16 rounded-xl object-cover"
-                      />
-
-                      <div className="min-w-0 flex-1">
-                        <h3 className="truncate text-sm font-semibold">
-                          {recipe.name}
-                        </h3>
-
-                        <p className="mt-1 text-xs text-gray-400">
-                          {recipe.category}
-                        </p>
-                      </div>
-
-                      <div className="flex items-center gap-1 text-sm font-semibold text-gray-600">
-                        <Heart
-                          size={15}
-                          className="fill-[#c93632] text-[#c93632]"
+                {/* Recipe List */}
+                {totalRecipeByMe?.length > 0 ? (
+                  <div className="divide-y divide-gray-100">
+                    {totalRecipeByMe.slice(0, 5).map((recipe) => (
+                      <div
+                        key={recipe._id}
+                        className="flex items-center gap-4 p-5 transition hover:bg-gray-50"
+                      >
+                        {/* Image */}
+                        <Image
+                          width={64}
+                          height={64}
+                          src={recipe.image}
+                          alt={recipe.title}
+                          className="h-16 w-16 shrink-0 rounded-xl object-cover"
                         />
-                        {recipe.likes}
-                      </div>
 
-                      <button className="hidden rounded-lg border border-gray-200 px-3 py-2 text-xs font-semibold transition hover:bg-gray-50 sm:block">
-                        View
-                      </button>
+                        {/* Recipe Info */}
+                        <div className="min-w-0 flex-1">
+                          <h3 className="truncate text-sm font-semibold text-gray-900">
+                            {recipe.title}
+                          </h3>
+
+                          <div className="mt-1 flex items-center gap-2">
+                            <span className="text-xs text-[#c93632]">
+                              {recipe.category}
+                            </span>
+
+                            <span className="text-xs text-gray-300">•</span>
+
+                            <span className="text-xs text-gray-400">
+                              {recipe.cuisine}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Likes */}
+                        <div className="hidden items-center gap-1 text-sm font-semibold text-gray-600 sm:flex">
+                          <Heart
+                            size={15}
+                            className="fill-[#c93632] text-[#c93632]"
+                          />
+
+                          {recipe.likes || 0}
+                        </div>
+
+                        {/* View */}
+                        <Link
+                          href={`/recipe-details/${recipe._id}`}
+                          className="hidden rounded-lg border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:border-[#c93632] hover:text-[#c93632] sm:block"
+                        >
+                          View
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* Empty State */
+                  <div className="p-10 text-center">
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[#c93632]/10 text-[#c93632]">
+                      <ChefHat size={25} />
                     </div>
-                  ))}
-                </div>
+
+                    <h3 className="mt-3 text-sm font-semibold text-gray-700">
+                      No recipes yet
+                    </h3>
+
+                    <p className="mt-1 text-xs text-gray-400">
+                      Start by creating your first recipe.
+                    </p>
+
+                    <Link
+                      href="/dashboard/add-recipe"
+                      className="mt-4 inline-flex rounded-lg bg-[#c93632] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#b82f2b]"
+                    >
+                      Create Recipe
+                    </Link>
+                  </div>
+                )}
               </div>
 
+              {/* Quick Actions */}
               <div className="rounded-2xl border border-gray-200 bg-white p-5">
                 <div className="mb-5">
                   <h2 className="font-bold">Quick Actions</h2>
+
                   <p className="mt-1 text-xs text-gray-400">
                     Manage your recipe workspace
                   </p>
                 </div>
 
                 <div className="space-y-3">
+                  {/* Add Recipe */}
                   <Link
-                    href="/add-recipe"
+                    href="/dashboard/add-recipe"
                     className="group flex items-center gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-red-100 hover:bg-red-50"
                   >
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-[#c93632]">
@@ -182,6 +209,7 @@ const UserDashboard = async () => {
 
                     <div className="flex-1">
                       <p className="text-sm font-semibold">Add New Recipe</p>
+
                       <p className="mt-0.5 text-xs text-gray-400">
                         Share something delicious
                       </p>
@@ -193,6 +221,7 @@ const UserDashboard = async () => {
                     />
                   </Link>
 
+                  {/* Saved Recipes */}
                   <Link
                     href="/dashboard/favoriterecipe"
                     className="group flex items-center gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-red-100 hover:bg-red-50"
@@ -203,6 +232,7 @@ const UserDashboard = async () => {
 
                     <div className="flex-1">
                       <p className="text-sm font-semibold">Saved Recipes</p>
+
                       <p className="mt-0.5 text-xs text-gray-400">
                         Continue your favorites
                       </p>
@@ -214,6 +244,7 @@ const UserDashboard = async () => {
                     />
                   </Link>
 
+                  {/* Account Settings */}
                   <Link
                     href="/dashboard/profile"
                     className="group flex items-center gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-red-100 hover:bg-red-50"
@@ -224,6 +255,7 @@ const UserDashboard = async () => {
 
                     <div className="flex-1">
                       <p className="text-sm font-semibold">Account Settings</p>
+
                       <p className="mt-0.5 text-xs text-gray-400">
                         Manage your profile
                       </p>

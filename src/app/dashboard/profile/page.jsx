@@ -5,6 +5,7 @@ import { authClient, useSession } from "@/lib/auth-client";
 import { CrownDiamond } from "@gravity-ui/icons";
 import { Crown, Pencil, UserRound } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 // import premium from "/king.png";
 
@@ -191,7 +192,47 @@ const Profile = () => {
               </p>
             </div>
           ) : (
-            ""
+            <div className="h-fit rounded-2xl border border-yellow-200 bg-gradient-to-br from-[#fffaf0] to-[#fff8f7] p-5">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#c93632] text-white shadow-sm">
+                  <Crown size={20} />
+                </div>
+
+                <div>
+                  <h2 className="text-sm font-bold text-gray-900">
+                    Premium Member
+                  </h2>
+
+                  <p className="mt-1 text-xs text-gray-500">
+                    Your account has premium access
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-5 rounded-xl border border-yellow-200 bg-white/70 p-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium text-gray-500">
+                    Account Type
+                  </span>
+
+                  <span className="rounded-full bg-yellow-100 px-3 py-1 text-[11px] font-bold text-yellow-700">
+                    PREMIUM
+                  </span>
+                </div>
+
+                <p className="mt-3 text-lg font-bold text-gray-900">
+                  Premium Access
+                </p>
+
+                <p className="mt-1 text-xs leading-5 text-gray-500">
+                  You can access premium recipes and exclusive content.
+                </p>
+              </div>
+
+              <p className="mt-3 text-center text-[11px] text-gray-400">
+                Premium membership is active
+              </p>
+            </div>
           )}
         </div>
 

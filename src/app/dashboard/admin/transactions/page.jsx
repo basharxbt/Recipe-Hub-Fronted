@@ -12,6 +12,9 @@ import {
 
 const Transactions = async () => {
   const allTransactions = await transactions();
+  const premiumTransactions = allTransactions.filter(
+    (transaction) => transaction.product === "premium_access",
+  );
   const transactionsRevenue = allTransactions.reduce(
     (total, tx) => total + Number(tx.amount),
     0,
@@ -38,9 +41,7 @@ const Transactions = async () => {
           </div>
         </div>
 
-        {/* Stats */}
         <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Total Revenue */}
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-50">
@@ -51,11 +52,9 @@ const Transactions = async () => {
             <p className="text-sm text-gray-500">Total Revenue</p>
 
             <h3 className="mt-1 text-2xl font-bold text-gray-900">
-              {(transactionsRevenue / 100).toFixed(2)}
+              {(transactionsRevenue / 100).toFixed(2)}$
             </h3>
           </div>
-
-          {/* Total Transactions */}
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
             <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-red-50">
               <CreditCard size={21} className="text-[#c93632]" />
@@ -68,7 +67,6 @@ const Transactions = async () => {
             </h3>
           </div>
 
-          {/* Premium Sales */}
           <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
             <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50">
               <ShoppingBag size={21} className="text-purple-600" />
@@ -76,7 +74,9 @@ const Transactions = async () => {
 
             <p className="text-sm text-gray-500">Premium Sales</p>
 
-            <h3 className="mt-1 text-2xl font-bold text-gray-900">2,361</h3>
+            <h3 className="mt-1 text-2xl font-bold text-gray-900">
+              {premiumTransactions.length}
+            </h3>
           </div>
 
           {/* Paid */}
@@ -87,7 +87,10 @@ const Transactions = async () => {
 
             <p className="text-sm text-gray-500">Paid Transactions</p>
 
-            <h3 className="mt-1 text-2xl font-bold text-gray-900">2,361</h3>
+            <h3 className="mt-1 text-2xl font-bold text-gray-900">
+              {" "}
+              {allTransactions.length}
+            </h3>
           </div>
         </div>
 
@@ -106,28 +109,6 @@ const Transactions = async () => {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              {/* Search */}
-              <div className="flex h-10 w-full items-center rounded-xl border border-gray-200 bg-gray-50 px-3 sm:w-64">
-                <svg
-                  width="17"
-                  height="17"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="shrink-0 text-gray-400"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.3-4.3" />
-                </svg>
-
-                <input
-                  type="text"
-                  placeholder="Search transactions..."
-                  className="ml-2 w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
-                />
-              </div>
-
               {/* Type */}
               <button
                 type="button"
@@ -137,8 +118,6 @@ const Transactions = async () => {
               </button>
             </div>
           </div>
-
-          {/* Table */}
           <div className="overflow-x-auto">
             <table className="w-full min-w-[1100px]">
               <thead>
@@ -195,8 +174,6 @@ const Transactions = async () => {
                       </div>
                     </td>
 
-                    {/* Recipe */}
-
                     {/* Type */}
                     <td className="px-6 py-4">
                       <span className="rounded-full bg-purple-50 px-3 py-1.5 text-xs font-semibold text-purple-600">
@@ -207,13 +184,20 @@ const Transactions = async () => {
                     {/* Amount */}
                     <td className="px-6 py-4">
                       <p className="text-sm font-bold text-gray-900">
-                        {transaction.amount}
+                        ${(transaction.amount / 100).toFixed(2)}
                       </p>
                     </td>
 
                     {/* Date */}
                     <td className="px-6 py-4 text-sm text-gray-500">
-                      {transaction.paidAt}
+                      {new Date(transaction.paidAt).toLocaleDateString(
+                        "en-US",
+                        {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        },
+                      )}
                     </td>
 
                     {/* Status */}

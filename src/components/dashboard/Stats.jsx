@@ -1,7 +1,7 @@
 import { Bookmark, BookOpen, Heart, TrendingUp, Users } from "lucide-react";
 import React from "react";
 
-const Stats = ({ savedRecipes, totalRecipeByMe }) => {
+const Stats = ({ savedRecipes, totalRecipeByMe, purchasedRecipes }) => {
   const totalLikes = totalRecipeByMe.reduce(
     (total, recipe) => total + Number(recipe.likes || 0),
     0,
@@ -13,25 +13,25 @@ const Stats = ({ savedRecipes, totalRecipeByMe }) => {
     {
       title: "Total Recipes",
       value: totalRecipeByMe.length,
-      change: "+12.5%",
+
       icon: BookOpen,
     },
     {
       title: "Saved Recipes",
       value: savedRecipes.length,
-      change: "+8.2%",
+
       icon: Bookmark,
     },
     {
       title: "Total Likes",
       value: totalLikes,
-      change: "+18.4%",
+
       icon: Heart,
     },
     {
       title: "Total Purchased Recipe",
-      value: "12.8K",
-      change: "+24.6%",
+      value: purchasedRecipes.length,
+
       icon: Users,
     },
   ];
@@ -49,11 +49,6 @@ const Stats = ({ savedRecipes, totalRecipeByMe }) => {
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 text-[#c93632]">
                 <Icon size={20} />
               </div>
-
-              <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
-                <TrendingUp size={12} />
-                {stat.change}
-              </span>
             </div>
 
             <p className="text-sm text-gray-500">{stat.title}</p>
