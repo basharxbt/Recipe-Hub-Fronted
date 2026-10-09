@@ -3,11 +3,9 @@
 import Image from "next/image";
 import { Clock3, Heart, Bookmark, ChefHat, Star } from "lucide-react";
 import Link from "next/link";
-
 const RecipeCard = ({ recipe }) => {
   return (
     <article className="group w-full max-w-[340px]">
-      {/* Image */}
       <div className="relative h-[420px] overflow-hidden rounded-2xl">
         <Image
           src={recipe.image}
@@ -16,13 +14,11 @@ const RecipeCard = ({ recipe }) => {
           className="object-cover transition duration-500 group-hover:scale-105"
         />
 
-        {/* Rating */}
         <div className="absolute left-4 top-4 flex items-center gap-1 rounded-full bg-white px-3 py-2 shadow-sm">
           <Star size={15} fill="#f5c518" className="text-[#f5c518]" />
           <span className="text-sm font-semibold">{recipe.rating}</span>
         </div>
 
-        {/* Actions */}
         <div className="absolute right-4 top-4 flex flex-col gap-2">
           <button
             aria-label="Like recipe"
@@ -40,16 +36,14 @@ const RecipeCard = ({ recipe }) => {
         </div>
       </div>
 
-      {/* Content */}
       <div className="pt-5">
         <p className="mb-2 text-sm font-semibold text-[#c93632]">
           {recipe.category}
         </p>
 
-        <h2 className="text-[21px] font-bold leading-7 text-black transition group-hover:text-[#c93632]">
+        <h2 className="font-bold text-[21px] leading-7 text-black dark:text-[#c93632] group-hover:text-[#c93632] transition">
           {recipe.title}
         </h2>
-
         <div className="mt-5 flex items-center gap-3">
           <div className="h-8 w-8 rounded-full bg-[#f8e7e6] flex items-center justify-center">
             <ChefHat size={15} className="text-[#c93632]" />
@@ -57,12 +51,12 @@ const RecipeCard = ({ recipe }) => {
 
           <div className="leading-tight">
             <p className="text-[11px] text-gray-400">Recipe by</p>
-            <p className="text-sm font-semibold text-gray-800 group-hover:text-[#c93632] transition">
+            <p className="text-sm font-semibold text-gray-800 dark:text-[#c93632] group-hover:text-[#c93632] transition">
               {recipe?.authorName}
             </p>
           </div>
         </div>
-        {/* Details */}
+
         <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-[#8b8b8b]">
           <div className="flex items-center gap-1.5">
             <Clock3 size={16} />

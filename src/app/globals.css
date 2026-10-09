@@ -26,3 +26,13 @@
     max-width: 1536px;
   }
 }
+
+body {
+  background: white;
+  color: black;
+}
+
+.dark body {
+  background: #111;
+  color: white;
+}

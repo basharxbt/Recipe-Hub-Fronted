@@ -1,25 +1,36 @@
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { useSession, authClient } from "@/lib/auth-client";
 import { savedRecipe } from "@/lib/data";
+
 import { Bookmark } from "lucide-react";
+
 import { useState } from "react";
 import ReportModal from "./ReportModal";
 import toast from "react-hot-toast";
 
 const Action = ({ recipe, savedRecipesCount }) => {
   console.log(savedRecipesCount, "this is saved recipes count from action");
+
   const { data: session, error } = useSession();
+
   const user = session?.user;
-  const userEmail = user?.email;
 
   console.log(session, error, "this is from action");
+
   const [save, setSave] = useState(false);
+
   const saveRecipeHandler = async () => {
-    if (save) {
-      toast.error("You had already saved this recipe");
+    if (!user) {
+      toast.error("Please login first");
       return;
     }
+
+    if (save) {
+      toast.error("You already saved this recipe");
+      return;
+    }
+
     if (!user.isPremium && savedRecipesCount >= 2) {
       toast.error(
         "Free users can save up to 2 recipes. Upgrade to premium for unlimited saves.",
@@ -27,20 +38,31 @@ const Action = ({ recipe, savedRecipesCount }) => {
       return;
     }
 
-    const saveRecipe = await savedRecipe({
+    // Get JWT from Better Auth client
+    const { data, error } = await authClient.token();
+
+    if (error || !data?.token) {
+      toast.error("Authentication failed");
+      return;
+    }
+
+    const saveRecipe = await savedRecipe(data.token, {
       recipeId: recipe._id,
-      userEmail: user?.email,
+      userEmail: user.email,
       addedAt: new Date().toLocaleDateString(),
-      userId: user?.id,
+      userId: user.id,
     });
+
     console.log(saveRecipe, "this is save recipe from details page");
+
     toast.success("Recipe Saved Successfully");
+
     setSave(true);
   };
 
   return (
     <div>
-      <div className="mt-5  flex flex-wrap items-center gap-3">
+      <div className="mt-5 flex flex-wrap items-center gap-3">
         <button
           onClick={saveRecipeHandler}
           className="flex cursor-pointer items-center gap-2 rounded-lg border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:border-[#c93632] hover:text-[#c93632]"
@@ -49,7 +71,7 @@ const Action = ({ recipe, savedRecipesCount }) => {
           Save
         </button>
 
-        <ReportModal recipe={recipe}></ReportModal>
+        <ReportModal recipe={recipe} />
       </div>
     </div>
   );

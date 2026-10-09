@@ -20,7 +20,7 @@ const PopularRecipe = async () => {
             <div className="mb-3 flex items-center gap-2">
               <Flame size={18} className="text-[#c93632]" />
 
-              <span className="text-sm font-semibold uppercase tracking-wider text-[#c93632]">
+              <span className="text-sm className='dark:text-[#c93632]' font-semibold uppercase tracking-wider text-[#c93632]">
                 Trending Now
               </span>
             </div>
@@ -29,7 +29,7 @@ const PopularRecipe = async () => {
               Popular Recipes
             </h2>
 
-            <p className="mt-3  text-gray-500">
+            <p className="mt-3  text-gray-500 dark:text-[#c93632]">
               Discover the recipes everyone is loving right now.
             </p>
           </div>

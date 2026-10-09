@@ -11,9 +11,15 @@ import {
 } from "lucide-react";
 
 import { myPurchasedRecipes } from "@/lib/data";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const Purchasedrecipes = async () => {
-  const purchasedRecipes = await myPurchasedRecipes();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const userEmail = session.user.email;
+  const purchasedRecipes = await myPurchasedRecipes(userEmail);
 
   console.log(
     purchasedRecipes,

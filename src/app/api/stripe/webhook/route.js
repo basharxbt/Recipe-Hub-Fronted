@@ -1,6 +1,5 @@
 import Stripe from "stripe";
 import { MongoClient } from "mongodb";
-import { premiumPriceId } from "@/lib/stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -8,7 +7,6 @@ const client = new MongoClient(process.env.MONGODB_URI);
 
 export async function POST(request) {
   try {
-    // Read webhook body only once
     const body = await request.text();
 
     const signature = request.headers.get("stripe-signature");

@@ -25,7 +25,7 @@ const Hero = () => {
             Discover <span className="mx-2">•</span> Cook{" "}
             <span className="mx-2">•</span> Share
           </p>
-          <h1 className="md:text-6xl text-4xl font-bold">
+          <h1 className="md:text-6xl text-4xl font-bold dark:text-black">
             Good Food Starts
             <br />
             With a <span className="text-[#c93632]">Great Recipe.</span>
@@ -51,7 +51,7 @@ const Hero = () => {
 
           <div className="mt-7 flex flex-wrap gap-4">
             <Link
-              href="/recipes"
+              href="/"
               className="flex items-center gap-3 rounded-lg bg-[#c93632] px-7 py-4 text-sm font-bold text-white transition hover:-translate-y-1 hover:bg-[#ad302c]"
             >
               <Compass size={19} />
@@ -75,7 +75,7 @@ const Hero = () => {
               </div>
 
               <div>
-                <p className="text-xl font-bold">10K+</p>
+                <p className="text-xl font-bold dark:text-black">10K+</p>
                 <p className="text-sm text-gray-500">Recipes</p>
               </div>
             </div>
@@ -86,7 +86,7 @@ const Hero = () => {
               </div>
 
               <div>
-                <p className="text-xl font-bold">50+</p>
+                <p className="text-xl font-bold dark:text-black">50+</p>
                 <p className="text-sm text-gray-500">Cuisines</p>
               </div>
             </div>
@@ -97,7 +97,7 @@ const Hero = () => {
               </div>
 
               <div>
-                <p className="text-xl font-bold">25K+</p>
+                <p className="text-xl font-bold dark:text-black">25K+</p>
                 <p className="text-sm text-gray-500">Happy Cooks</p>
               </div>
             </div>
@@ -107,10 +107,12 @@ const Hero = () => {
       <div className="relative z-20 pb-12 px-3 lg:px-0 container mx-auto ">
         <div className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_rgba(0,0,0,0.07)]">
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold">Popular Categories</h2>
+            <h2 className="text-xl font-bold dark:text-black">
+              Popular Categories
+            </h2>
 
             <Link
-              href="/categories"
+              href="/"
               className="flex items-center gap-2 text-sm font-bold text-[#c93632]"
             >
               View all
@@ -119,12 +121,42 @@ const Hero = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            <Category emoji="🍳" title="Breakfast" count="120+ recipes" />
-            <Category emoji="🥗" title="Healthy" count="850+ recipes" />
-            <Category emoji="🍰" title="Desserts" count="650+ recipes" />
-            <Category emoji="🍜" title="Asian" count="920+ recipes" />
-            <Category emoji="🍕" title="Italian" count="750+ recipes" />
-            <Category emoji="🌱" title="Vegan" count="420+ recipes" />
+            <Category
+              emoji="🍳"
+              title="Breakfast"
+              count="120+ recipes"
+              className="dark:text-black"
+            />
+            <Category
+              emoji="🥗"
+              title="Healthy"
+              count="850+ recipes"
+              className="dark:text-black"
+            />
+            <Category
+              emoji="🍰"
+              title="Desserts"
+              count="650+ recipes"
+              className="dark:text-black"
+            />
+            <Category
+              emoji="🍜"
+              title="Asian"
+              count="920+ recipes"
+              className="dark:text-black"
+            />
+            <Category
+              emoji="🍕"
+              title="Italian"
+              count="750+ recipes"
+              className="dark:text-black"
+            />
+            <Category
+              emoji="🌱"
+              title="Vegan"
+              count="420+ recipes"
+              className="dark:text-black"
+            />
           </div>
         </div>
       </div>

@@ -6,9 +6,6 @@ const Stats = ({ savedRecipes, totalRecipeByMe, purchasedRecipes }) => {
     (total, recipe) => total + Number(recipe.likes || 0),
     0,
   );
-  console.log(savedRecipes, "this is savedrecipe from stats");
-
-  console.log(totalLikes, "TOTAL LIKES");
   const stats = [
     {
       title: "Total Recipes",

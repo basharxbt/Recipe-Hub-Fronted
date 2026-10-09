@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Button, Modal, TextArea, useOverlayState } from "@heroui/react";
 import { reportSend } from "@/lib/data";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
 const reportReasons = [
@@ -63,8 +63,15 @@ const ReportModal = ({ recipe }) => {
       createdAt: new Date().toLocaleDateString(),
       status: "pending",
     };
+    const { data, error } = await authClient.token();
 
-    await reportSend(reportData);
+    if (error || !data?.token) {
+      toast.error("Authentication failed");
+      return;
+    }
+
+    const token = data.token;
+    await reportSend(token, reportData);
 
     console.log("Report submitted:", reportData);
 

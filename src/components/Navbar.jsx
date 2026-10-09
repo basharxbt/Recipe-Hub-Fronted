@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown, Bookmark, UserRound, Menu, X } from "lucide-react";
+import {
+  ChevronDown,
+  Bookmark,
+  UserRound,
+  Menu,
+  X,
+  ChefHat,
+} from "lucide-react";
 
 import Image from "next/image";
 import { useSession } from "@/lib/auth-client";
@@ -15,11 +22,9 @@ import { Darkmode } from "./DarkMode";
 
 const Navbar = () => {
   const { data: session } = useSession();
-  console.log(session);
+
   const user = session?.user;
   const { data: userInfo, isPending } = useSession();
-
-  // console.log("Session Data:", { userInfo, isPending });
 
   const [mobileMenu, setMobileMenu] = useState(false);
 
@@ -40,25 +45,13 @@ const Navbar = () => {
       name: "Dashboard",
       path: "/dashboard",
     },
-    // {
-    //   name: "Categories",
-    //   path: "/categories",
-    // },
-    // {
-    //   name: "Blog",
-    //   path: "/blog",
-    // },
-    // {
-    //   name: "Features",
-    //   path: "/features",
-    // },
   ];
   return (
     <header className="w-full border-b border-gray-100 bg-white sticky top-0 z-50">
       <nav className="mx-auto flex container  items-center justify-between px-5 py-4 lg:py-5">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-[54px] w-[54px] items-center justify-center rounded-[8px] bg-[#c93632] text-white">
-            <Image src={logo} alt="RecipeHub Logo" />
+            <ChefHat size={24} />
           </div>
 
           <span className="text-[26px] font-bold tracking-[-1px] text-[#c93632]">
@@ -81,16 +74,18 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <Darkmode></Darkmode>
 
         <div className="hidden items-center gap-[20px] lg:flex">
-          <Link
-            href="/dashboard/favoriterecipe"
-            aria-label="Bookmarks"
-            className="text-black transition hover:text-[#c93632]"
-          >
-            <Bookmark size={21} strokeWidth={1.8} />
-          </Link>
+          <Darkmode></Darkmode>
+          {user?.role === "user" && (
+            <Link
+              href="/dashboard/favoriterecipe"
+              aria-label="Bookmarks"
+              className="text-black transition hover:text-[#c93632]"
+            >
+              <Bookmark size={21} strokeWidth={1.8} />
+            </Link>
+          )}
           {userInfo ? (
             <ProfileDropdown></ProfileDropdown>
           ) : (

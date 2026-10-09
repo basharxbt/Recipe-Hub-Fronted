@@ -2,39 +2,43 @@
 
 import { Moon, Sun } from "@gravity-ui/icons";
 import { Switch } from "@heroui/react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function Darkmode() {
-  const icons = {
-    darkMode: {
-      off: Moon,
-      on: Sun,
-      selectedControlClass: "bg-[#c93632] text-white",
-    },
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  const isDark = resolvedTheme === "dark";
+
+  const handleToggle = () => {
+    console.log("clicked, current:", resolvedTheme);
+    setTheme(isDark ? "light" : "dark");
   };
 
   return (
-    <div className="flex gap-3">
-      {Object.entries(icons).map(([key, value]) => (
-        <Switch key={key} defaultSelected aria-label={key} size="lg">
-          {({ isSelected }) => (
-            <Switch.Content>
-              <Switch.Control
-                className={isSelected ? value.selectedControlClass : ""}
-              >
-                <Switch.Thumb>
-                  <Switch.Icon>
-                    {isSelected ? (
-                      <value.on className="size-3 text-inherit opacity-100" />
-                    ) : (
-                      <value.off className="size-3 text-inherit opacity-70" />
-                    )}
-                  </Switch.Icon>
-                </Switch.Thumb>
-              </Switch.Control>
-            </Switch.Content>
-          )}
-        </Switch>
-      ))}
-    </div>
+    <Switch
+      aria-label="Toggle dark mode"
+      size="lg"
+      isSelected={isDark}
+      onChange={handleToggle}
+    >
+      <Switch.Content>
+        <Switch.Control className={isDark ? "bg-[#c93632]" : "bg-[#f1ece9]"}>
+          <Switch.Thumb>
+            <Switch.Icon>
+              {isDark ? (
+                <Moon className="size-3 text-[#c93632]" />
+              ) : (
+                <Sun className="size-3 text-black" />
+              )}
+            </Switch.Icon>
+          </Switch.Thumb>
+        </Switch.Control>
+      </Switch.Content>
+    </Switch>
   );
 }

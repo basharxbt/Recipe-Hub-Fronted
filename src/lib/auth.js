@@ -13,6 +13,10 @@ export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
   }),
+  trustedOrigins: [
+    "https://recipe-hub-fronted.vercel.app",
+    "http://localhost:3000",
+  ],
 
   emailAndPassword: {
     enabled: true,

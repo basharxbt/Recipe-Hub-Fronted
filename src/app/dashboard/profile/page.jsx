@@ -1,11 +1,13 @@
 "use client";
 
 import ProfileEdit from "@/components/ProfileEdit";
+
 import { authClient, useSession } from "@/lib/auth-client";
-import { CrownDiamond } from "@gravity-ui/icons";
+
 import { Crown, Pencil, UserRound } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 // import premium from "/king.png";
 
@@ -17,20 +19,27 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => setMounted(true), []);
+  const router = useRouter();
+  // const { refetch } = useSession();
+
   useEffect(() => {
-    const refreshUser = async () => {
+    async function refreshUser() {
+      // Fetch the latest user data from Better Auth
       const result = await authClient.getSession({
         query: {
           disableCookieCache: true,
         },
       });
 
-      console.log("Fresh premium:");
-    };
+      console.log("Fresh user data:", result.data?.user);
+
+      // Update the session hook and server-rendered page
+      await refetch();
+      router.refresh();
+    }
 
     refreshUser();
-  }, []);
-
+  }, [refetch, router]);
   const user = data?.user;
 
   if (!mounted || isPending) {
@@ -191,7 +200,7 @@ const Profile = () => {
                 Secure payment powered by Stripe
               </p>
             </div>
-          ) : (
+          ) : user.role === "user" ? (
             <div className="h-fit rounded-2xl border border-yellow-200 bg-gradient-to-br from-[#fffaf0] to-[#fff8f7] p-5">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#c93632] text-white shadow-sm">
@@ -233,6 +242,8 @@ const Profile = () => {
                 Premium membership is active
               </p>
             </div>
+          ) : (
+            ""
           )}
         </div>
 

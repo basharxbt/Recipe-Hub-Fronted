@@ -1,15 +1,8 @@
-import Link from "next/link";
-import {
-  LayoutDashboard,
-  Users,
-  ChefHat,
-  Flag,
-  CreditCard,
-} from "lucide-react";
-
+import { ChefHat } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
+import AdminNav from "../AdminNav";
 
 const AdminAside = async () => {
   const session = await auth.api.getSession({
@@ -26,63 +19,13 @@ const AdminAside = async () => {
 
         <div>
           <h1 className="text-xl font-bold tracking-tight">RecipeHub</h1>
+
           <p className="text-xs text-gray-400">Admin Panel</p>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-4 py-7">
-        <p className="mb-3 px-3 text-[11px] font-bold uppercase tracking-widest text-gray-400">
-          Administration
-        </p>
-
-        <div className="space-y-1">
-          {/* Dashboard */}
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-3 rounded-xl bg-[#c93632] px-4 py-3 text-sm font-semibold text-white shadow-md shadow-red-100"
-          >
-            <LayoutDashboard size={19} />
-            Dashboard
-          </Link>
-
-          {/* Manage Users */}
-          <Link
-            href="/dashboard/admin/manageusers"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-          >
-            <Users size={19} />
-            Manage Users
-          </Link>
-
-          {/* Manage Recipes */}
-          <Link
-            href="/dashboard/admin/managerecipe"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-          >
-            <ChefHat size={19} />
-            Manage Recipes
-          </Link>
-
-          {/* Reports */}
-          <Link
-            href="/dashboard/admin/reports"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-          >
-            <Flag size={19} />
-            Reports
-          </Link>
-
-          {/* Transactions */}
-          <Link
-            href="/dashboard/admin/transactions"
-            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-900"
-          >
-            <CreditCard size={19} />
-            Transactions
-          </Link>
-        </div>
-      </nav>
+      <AdminNav />
 
       {/* Admin Profile */}
       <div className="border-t border-gray-100 p-5">
@@ -93,7 +36,7 @@ const AdminAside = async () => {
               alt={session.user.name || "Admin"}
               width={42}
               height={42}
-              className="rounded-full object-cover"
+              className="h-[42px] w-[42px] rounded-full object-cover"
             />
           ) : (
             <div className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full bg-[#c93632] text-sm font-bold text-white">

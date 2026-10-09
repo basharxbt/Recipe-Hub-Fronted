@@ -14,13 +14,12 @@ const Likebtn = ({ recipe }) => {
     setLiked(true);
 
     await likeIncrease(recipe._id);
-    
   };
   return (
     <div>
       <button
         onClick={likeHandler}
-        className="group flex items-center gap-2 rounded-full border border-red-100 px-4 py-2.5 text-sm font-semibold text-[#c93632] transition-all duration-200 "
+        className="group cursor-pointer flex items-center gap-2 rounded-full border border-red-100 px-4 py-2.5 text-sm font-semibold text-[#c93632] transition-all duration-200 "
       >
         <Heart
           size={20}

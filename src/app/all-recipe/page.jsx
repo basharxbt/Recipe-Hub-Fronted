@@ -58,7 +58,9 @@ const AllRecipe = async ({ searchParams }) => {
         <Searchbtn filter={searchQuery} />
       </div>
       <div className="flex gap-5 items-center justify-center mt-5 mb-10">
-        <p className="my-3 text-neutral-500">Popular Searches: </p>
+        <p className="my-3 text-neutral-500 dark:text-[#c93632]">
+          Popular Searches:{" "}
+        </p>
         <RecipeCategorySearch
           filters={searchQuery}
           categories={categories}

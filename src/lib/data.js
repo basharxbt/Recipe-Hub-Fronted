@@ -1,12 +1,12 @@
 export const recipeData = async () => {
-  const res = await fetch("http://localhost:3100/recipes", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/recipes`, {
     method: "GET",
   });
   const fetchData = await res.json();
   return fetchData;
 };
 export const searchRecipe = async (searchParams) => {
-  const url = `http://localhost:3100/recipes?${searchParams}`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipes?${searchParams}`;
 
   const res = await fetch(url);
 
@@ -17,29 +17,38 @@ export const searchRecipe = async (searchParams) => {
   return await res.json();
 };
 export const recipeDataByAuthor = async (userEmail) => {
-  const res = await fetch(`http://localhost:3100/recipes/user/${userEmail}`, {
-    method: "GET",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipes/user/${userEmail}`,
+    {
+      method: "GET",
+    },
+  );
   const fetchData = await res.json();
   return fetchData;
 };
 export const recipeSingleData = async (id) => {
-  const res = await fetch(`http://localhost:3100/recipes/find/${id}`, {
-    method: "GET",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipes/find/${id}`,
+    {
+      method: "GET",
+    },
+  );
   const data = await res.json();
   return data;
 };
 export const reportedRecipeCollection = async () => {
-  const res = await fetch(`http://localhost:3100/reported-recipe/data`, {
-    method: "GET",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/reported-recipe/data`,
+    {
+      method: "GET",
+    },
+  );
   const data = await res.json();
   return data;
 };
 
 export const addRecipeData = async (recipe) => {
-  const res = await fetch("http://localhost:3100/recipes", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI}/recipes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -51,42 +60,57 @@ export const addRecipeData = async (recipe) => {
 };
 
 export const likeIncrease = async (id) => {
-  const res = await fetch(`http://localhost:3100/recipes/find/${id}`, {
-    method: "PATCH",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipes/find/${id}`,
+    {
+      method: "PATCH",
+    },
+  );
   const data = await res.json();
   return data;
 };
 
-export const savedRecipe = async (recipe) => {
-  const res = await fetch(`http://localhost:3100/recipes/savedrecipe`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+export const savedRecipe = async (token, recipe) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipes/savedrecipe`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify(recipe),
     },
-    body: JSON.stringify(recipe),
-  });
+  );
   const data = res.json();
   return data;
 };
 
-export const reportSend = async (report) => {
-  const res = await fetch("http://localhost:3100/recipehub/report", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+export const reportSend = async (token, report) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipehub/report`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(report),
     },
-    body: JSON.stringify(report),
-  });
+  );
   const data = res.json();
 
   return data;
 };
 
 export const getReport = async () => {
-  const res = await fetch("http://localhost:3100/recipehub/report", {
-    method: "GET",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipehub/report`,
+    {
+      method: "GET",
+    },
+  );
   const data = res.json();
 
   return data;
@@ -94,7 +118,7 @@ export const getReport = async () => {
 
 export const favoriteRecipe = async (userEmail, token) => {
   const res = await fetch(
-    `http://localhost:3100/recipes/savedrecipe/${userEmail}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipes/savedrecipe/${userEmail}`,
     {
       method: "GET",
       headers: {
@@ -108,9 +132,12 @@ export const favoriteRecipe = async (userEmail, token) => {
 };
 
 export const unsaveRecipe = async (id) => {
-  const data = await fetch(`http://localhost:3100/recipes/savedrecipe/${id}`, {
-    method: "DELETE",
-  });
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipes/savedrecipe/${id}`,
+    {
+      method: "DELETE",
+    },
+  );
 
   console.log(id);
 
@@ -118,23 +145,29 @@ export const unsaveRecipe = async (id) => {
 };
 
 export const totalUsers = async () => {
-  const res = await fetch("http://localhost:3100/recipehub/users", {
-    method: "GET",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipehub/users`,
+    {
+      method: "GET",
+    },
+  );
   const data = res.json();
   return data;
 };
 
 export const reportedRecipeDismiss = async (id) => {
-  const res = await fetch(`http://localhost:3100/reported-recipe/data/${id}`, {
-    method: "DELETE",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/reported-recipe/data/${id}`,
+    {
+      method: "DELETE",
+    },
+  );
   const data = res.json;
   return data;
 };
 export const reportedRecipeDelete = async (id) => {
   const res = await fetch(
-    `http://localhost:3100/reported-recipe/data-delete/${id}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/reported-recipe/data-delete/${id}`,
     {
       method: "DELETE",
     },
@@ -144,42 +177,57 @@ export const reportedRecipeDelete = async (id) => {
 };
 
 export const recentCreatedRecipes = async (email) => {
-  const res = await fetch(`http://localhost:3100/recent/recipes/${email}`, {
-    method: "GET",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recent/recipes/${email}`,
+    {
+      method: "GET",
+    },
+  );
   const data = res.json();
   return data;
 };
 export const transactions = async () => {
-  const res = await fetch(`http://localhost:3100/premium/transaction`, {
-    method: "GET",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/premium/transaction`,
+    {
+      method: "GET",
+    },
+  );
   const data = res.json();
   return data;
 };
 export const recipeFeatureUpdate = async (id) => {
-  const res = await fetch(`http://localhost:3100/recipe/manage/${id}`, {
-    method: "PATCH",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/recipe/manage/${id}`,
+    {
+      method: "PATCH",
+    },
+  );
   const data = res.json();
   return data;
 };
 export const userBlock = async (id, newStatus) => {
-  const res = await fetch(`http://localhost:3100/users/role/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/users/role/${id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newStatus }),
     },
-    body: JSON.stringify({ newStatus }),
-  });
+  );
   const data = await res.json();
   return data;
 };
 
-export const myPurchasedRecipes = async () => {
-  const res = await fetch(`http://localhost:3100/purchased/recipes`, {
-    method: "GET",
-  });
+export const myPurchasedRecipes = async (userEmail) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URI}/purchased/recipes/${userEmail}`,
+    {
+      method: "GET",
+    },
+  );
   const data = await res.json();
   return data;
 };

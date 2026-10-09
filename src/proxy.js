@@ -23,17 +23,18 @@ export async function proxy(request) {
 
   // Pages blocked users cannot access
   const blockedPages = [
-    "/dashboard/add-recipe",
+    "/dashboard",
+    "/add-recipe",
     "/dashboard/recipes",
     "/dashboard/favoriterecipe",
-    "/dashboard/purchased-recipes",
+    "/dashboard/purchasedrecipes",
   ];
 
   const isBlockedPage = blockedPages.some((page) => pathname.startsWith(page));
 
   // Blocked user
   if (session.user.isBlocked === "Blocked" && isBlockedPage) {
-    return NextResponse.redirect(new URL("/access-denied", request.url));
+    return NextResponse.redirect(new URL("/user-blocked", request.url));
   }
 
   return NextResponse.next();
