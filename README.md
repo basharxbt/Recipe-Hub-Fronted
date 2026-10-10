@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# RecipeHub 🍽️
 
-First, run the development server:
+**RecipeHub** is a full-stack recipe-sharing and discovery platform where users can explore recipes, publish their own dishes, save favorites, and access premium content. It also includes an admin dashboard for managing users, recipes, reports, and transactions.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Browse and discover recipes by category, cuisine, or search.
+- Publish recipes with ingredients, instructions, preparation details, and images.
+- Upload recipe images through ImgBB.
+- Like and save recipes for later.
+- Report recipes for admin review.
+- User authentication with email/password and Google sign-in.
+- Premium membership and paid recipe access using Stripe.
+- View purchased recipes.
+- Admin dashboard for managing users, recipes, reports, and transactions.
+- Responsive user interface.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🧰 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Frontend**
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- HeroUI
+- Lucide React
+- Gravity UI Icons
+- react-hot-toast
 
-## Learn More
+**Backend and Database**
+- Node.js
+- Express.js
+- MongoDB
 
-To learn more about Next.js, take a look at the following resources:
+**Authentication, Payments, and Media**
+- Better Auth
+- Stripe
+- ImgBB
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Deployment and Version Control**
+- Vercel
+- Git and GitHub
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Getting Started
 
-## Deploy on Vercel
+### Prerequisites
+- Node.js and npm
+- MongoDB database
+- ImgBB API key
+- Stripe test keys
+- Google OAuth credentials, if Google sign-in is enabled
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💳 Payments
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+RecipeHub uses Stripe Checkout to process payments and Stripe webhooks to handle completed transactions and premium access updates.
+
+## 🔐 Security
+
+- Keep secret keys in environment variables.
+- Never commit `.env` or `.env.local` files.
+- Configure production environment variables in Vercel.
+- Protect private backend routes with proper authentication and authorization.
+
+## 📦 Deployment
+
+- Frontend: Vercel
+- Backend: Vercel
+- Database: MongoDB
+- Payments: Stripe
+- Images: ImgBB
+
+Configure the required environment variables and webhook URL before deploying.
+
+
+*Made with ❤️ for food lovers and cooking enthusiasts.*
